@@ -7,4 +7,7 @@ Os testes foram criados com as classes ContaCorrente e Investimento, até o mome
 #Pacotes
 
 - Moq
-- MSBuilder
+- NBuilder
+- MSTest.TestAdapter
+- MSTest.TestFramework
+
