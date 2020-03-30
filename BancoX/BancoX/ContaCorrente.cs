@@ -8,14 +8,17 @@ namespace BancoX
     [TestClass]
     public class ContaCorrente : IContaCorrente
     {
-        public ContaCorrente(IAgenciaRepository agenciaRepo, IContaRepository contaRepo)
+        public ContaCorrente(IAgenciaRepository agenciaRepo, IContaRepository contaRepo, IExtratoRepository extratoRepository)
         {
-            _IAgenciaRepository = agenciaRepo;
-            _IContaRepository = contaRepo;
-        }
+            AgenciaRepository = agenciaRepo;
+            ContaRepository = contaRepo;
+            ExtratoRepository = extratoRepository;
+        }   
 
-        public IAgenciaRepository _IAgenciaRepository { get; set; }
-        public IContaRepository _IContaRepository { get; set; }
+        public IAgenciaRepository AgenciaRepository { get; set; }
+        public IContaRepository ContaRepository { get; set; }
+        public IExtratoRepository ExtratoRepository { get; set; }
+
 
         public bool Deposito(int agencia, int conta, decimal valor, out string mensagemErro)
         {

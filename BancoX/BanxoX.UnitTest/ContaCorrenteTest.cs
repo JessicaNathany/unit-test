@@ -13,7 +13,8 @@ namespace BanxoX.UnitTest
         {
             var contaCorrente = new ContaCorrente(           
                 Mock.Of<IAgenciaRepository>(),
-                Mock.Of<IContaRepository>()
+                Mock.Of<IContaRepository>(),
+                Mock.Of<IExtratoRepository>()
                 
                 );
 
@@ -98,10 +99,15 @@ namespace BanxoX.UnitTest
 
 
             var agencia = new Agencia() { Id = 8792, Nome = "Agência Zona Oeste" };
-            Mock.Get(contaCorrente._IAgenciaRepository).Setup(x => x.GetById(100)).Returns(agencia);
+            Mock.Get(contaCorrente.AgenciaRepository).Setup(x => x.GetById(100)).Returns(agencia);
 
             var conta = new Conta() { Id = 3621, AgenciaId = 8792, NomeCliente = "Jéssica", CPFCliente = "004.887.380-24", Saldo = 100m };
-            Mock.Get(contaCorrente._IContaRepository).Setup(c => c.GetById(100, 8792)).Returns(conta);
+            Mock.Get(contaCorrente.ContaRepository).Setup(c => c.GetById(100, 8792)).Returns(conta);
+            Mock.Get(contaCorrente.ContaRepository)
+                .Verify(x => x.Save(It.Is<Conta>(c => c.AgenciaId.Equals(8792) && c.Id == 3621 && c.Saldo == 150m)));
+
+            Mock.Get(contaCorrente.ExtratoRepository)
+                .Verify(x => x.Save(It.Is<Extrato>(e => e.AgenciaId == 8792 && e.ContaId == 3621 && e.Descricao == "Depósito" && e.Valor == 50m && e.Saldo == 150m && e.DataRegistro == DateTime.Today)));
 
             // act
             string msgErro;
@@ -109,7 +115,6 @@ namespace BanxoX.UnitTest
 
             //assert
             Assert.IsTrue(result);
-            Assert.
         }
 
         [TestMethod]

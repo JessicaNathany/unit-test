@@ -9,5 +9,7 @@ namespace BancoX.Interface
     public interface IContaRepository
     {
         Conta GetById(int agenciaId, int contId);
+
+        void Save(Conta conta);
     }
 }

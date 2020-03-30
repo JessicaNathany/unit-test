@@ -54,9 +54,11 @@
     <Compile Include="Extrato.cs" />
     <Compile Include="Interface\IContaCorrente.cs" />
     <Compile Include="Interface\IContaRepository.cs" />
+    <Compile Include="Interface\IExtratoRepository.cs" />
     <Compile Include="Interface\IInvestimentos.cs" />
     <Compile Include="Investimentos.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TesouroDireto.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
