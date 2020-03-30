@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29609.76
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BancoX", "BancoX\BancoX.csproj", "{EEC841F1-0A3E-4FFE-8215-CA78738E5C2D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BanxoX.UnitTest", "BanxoX.UnitTest\BanxoX.UnitTest.csproj", "{5732F97C-E3F5-4049-8C42-BE9C7448EC7A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EEC841F1-0A3E-4FFE-8215-CA78738E5C2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEC841F1-0A3E-4FFE-8215-CA78738E5C2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEC841F1-0A3E-4FFE-8215-CA78738E5C2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EEC841F1-0A3E-4FFE-8215-CA78738E5C2D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5732F97C-E3F5-4049-8C42-BE9C7448EC7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5732F97C-E3F5-4049-8C42-BE9C7448EC7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5732F97C-E3F5-4049-8C42-BE9C7448EC7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5732F97C-E3F5-4049-8C42-BE9C7448EC7A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4CD2B57A-D56B-498C-A63C-10200686AF6D}
+	EndGlobalSection
+EndGlobal
