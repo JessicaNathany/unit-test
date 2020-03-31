@@ -57,7 +57,7 @@ namespace BanxoX.UnitTest
 
 
             var agencia = new Agencia() { Id = 8792, Nome = "Agência Zona Oeste" };
-            Mock.Get(contaCorrente._IAgenciaRepository).Setup(x=> x.GetById(100)).Returns(agencia);
+            Mock.Get(contaCorrente.AgenciaRepository).Setup(x=> x.GetById(100)).Returns(agencia);
 
 
             // act
@@ -77,10 +77,10 @@ namespace BanxoX.UnitTest
 
 
             var agencia = new Agencia() { Id = 8792, Nome = "Agência Zona Oeste" };
-            Mock.Get(contaCorrente._IAgenciaRepository).Setup(x => x.GetById(100)).Returns(agencia);
+            Mock.Get(contaCorrente.AgenciaRepository).Setup(x => x.GetById(100)).Returns(agencia);
 
             var conta = new Conta() { Id = 3621, AgenciaId = 8792, NomeCliente = "Jéssica", CPFCliente = "004.887.380-24", Saldo = 100m };
-            Mock.Get(contaCorrente._IContaRepository).Setup(c => c.GetById(100, 8792)).Returns(conta);
+            Mock.Get(contaCorrente.ContaRepository).Setup(c => c.GetById(100, 8792)).Returns(conta);
            
             // act
             string msgErro;
@@ -120,7 +120,16 @@ namespace BanxoX.UnitTest
         [TestMethod]
         public void Saque_Erro_SeAgenciaNaoExistir()
         {
-            Assert.Inconclusive();
+            // arrange
+            var contaCorrente = GetContaCorrente();
+
+            // act
+            string msgErro;
+            var result = contaCorrente.Saque(666, 3621, 50m, out msgErro); // agência não existe
+
+            //assert
+            Assert.IsFalse(result);
+            Assert.AreEqual("Agência é invalida!", msgErro);
         }
 
         [TestMethod]
@@ -150,7 +159,16 @@ namespace BanxoX.UnitTest
         [TestMethod]
         public void Transferencia_Erro_SeAgenciaOrigemNaoExistir()
         {
-            Assert.Inconclusive();
+            // arrange
+            var contaCorrente = GetContaCorrente();
+
+            // act
+            string msgErro;
+            var result = contaCorrente.Transferencia(666, 8792, 50m, 200, 700, out msgErro);
+
+            //assert
+            Assert.IsFalse(result);
+            Assert.AreEqual("Agência de origem inválida!", msgErro);
         }
 
         [TestMethod]
@@ -186,7 +204,31 @@ namespace BanxoX.UnitTest
         [TestMethod]
         public void SaldoErro_SeAgenciaNaoExistir()
         {
-            Assert.Inconclusive();
+            // arrange
+            var contaCorrente = GetContaCorrente();
+
+            // act
+            string msgErro;
+            var result = contaCorrente.Saldo(666, 8792, out msgErro);
+
+            //assert
+            Assert.AreEqual(0m, result);
+            Assert.AreEqual("Agência inválida!", msgErro);
+        }
+
+        [TestMethod]
+        public void Extrato_erro_SeAgenciaNaoExistir()
+        {
+            // arrange
+            var contaCorrente = GetContaCorrente();
+
+            // act
+            string msgErro;
+            var result = contaCorrente.Extrato(666, 8792, new DateTime(2020,02,01), new DateTime(2020, 02, 16), out msgErro);
+
+            //assert
+            Assert.AreEqual(0m, result);
+            Assert.AreEqual("Agência inválida!", msgErro);
         }
 
         [TestMethod]

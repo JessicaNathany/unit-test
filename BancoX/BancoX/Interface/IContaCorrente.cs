@@ -14,7 +14,7 @@ namespace BancoX
 
         decimal Saldo(int agencia, int conta, out string mensagemErro);
 
-        bool Transferencia(int agenciaOrigem, int contaOrigem, decimal valor, int agenciaDestino, int contaDestino, string MensagemErro);;
+        bool Transferencia(int agenciaOrigem, int contaOrigem, decimal valor, int agenciaDestino, int contaDestino, out string MensagemErro);
 
         List<Extrato> Extrato(int agencia, int conta, DateTime dataInicio, DateTime dataFim, out string mensagemErro);
     }

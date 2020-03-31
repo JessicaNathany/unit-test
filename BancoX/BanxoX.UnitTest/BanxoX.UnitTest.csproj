@@ -67,7 +67,6 @@
   <ItemGroup>
     <Compile Include="ContaCorrenteTest.cs" />
     <Compile Include="TesouroDiretoTest.cs" />
-    <Compile Include="InvestimentoTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

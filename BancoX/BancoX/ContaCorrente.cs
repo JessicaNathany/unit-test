@@ -35,7 +35,7 @@ namespace BancoX
             throw new NotImplementedException();
         }
 
-        public bool Transferencia(int agenciaOrigem, int contaOrigem, decimal valor, int agenciaDestino, int contaDestino, string MensagemErro)
+        public bool Transferencia(int agenciaOrigem, int contaOrigem, decimal valor, int agenciaDestino, int contaDestino, out  string MensagemErro)
         {
             throw new NotImplementedException();
         }
