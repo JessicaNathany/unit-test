@@ -1,5 +1,6 @@
 ﻿using System;
 using BancoX;
+using BancoX.Interface;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
@@ -8,6 +9,16 @@ namespace BanxoX.UnitTest
     [TestClass]
     public class TesouroDiretoTest
     {
+        private Carteira GetCarteira()
+        {
+            var carteira = new Carteira(
+                 Mock.Of<IExtratoInvetimentoRepository>(),
+                 Mock.Of<ICarteiraRepository>()
+                );
+
+            return carteira;
+        }
+
         [TestMethod]
         public void Erro_TituloNaoExiste()
         {
@@ -15,19 +26,26 @@ namespace BanxoX.UnitTest
         }
 
         [TestMethod]
-        public void CarteiraInvestidorNaoExiste_Erro()
+        public void Investir_CarteiraInvestidorNaoExiste_Erro()
         {
-            Assert.Inconclusive();
+            // arrange
+
+
+            // act
+
+            // assert
         }
 
         [TestMethod]
-        public void CarteiraInvestidorVazia_Erro()
+        public void CarteiraInvestidorSaldoInferior_Erro()
         {
             Assert.Inconclusive();
+
+            // carteira do investidor sem saldo
         }
 
         [TestMethod]
-        public void Investir_ValorMaiorQueValorMinimoTitulo()
+        public void Investir_ValorMaiorQueValorMinimoDoTitulo()
         {
             Assert.Inconclusive();
         }

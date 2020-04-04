@@ -48,12 +48,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Agencia.cs" />
+    <Compile Include="Carteira.cs" />
     <Compile Include="Conta.cs" />
     <Compile Include="ContaCorrente.cs" />
+    <Compile Include="ExtratoInvetimento.cs" />
     <Compile Include="Interface\IAgenciaRepository.cs" />
     <Compile Include="Extrato.cs" />
+    <Compile Include="Interface\ICarteira.cs" />
+    <Compile Include="Interface\ICarteiraRepository.cs" />
     <Compile Include="Interface\IContaCorrente.cs" />
     <Compile Include="Interface\IContaRepository.cs" />
+    <Compile Include="Interface\IExtratoInvetimentoRepository.cs" />
     <Compile Include="Interface\IExtratoRepository.cs" />
     <Compile Include="Interface\IInvestimentos.cs" />
     <Compile Include="Interface\ITesouroDireto.cs" />
