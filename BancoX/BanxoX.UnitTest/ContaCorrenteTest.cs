@@ -11,11 +11,11 @@ namespace BanxoX.UnitTest
     {
         private ContaCorrente GetContaCorrente()
         {
-            var contaCorrente = new ContaCorrente(           
+            var contaCorrente = new ContaCorrente(
                 Mock.Of<IAgenciaRepository>(),
                 Mock.Of<IContaRepository>(),
                 Mock.Of<IExtratoRepository>()
-                
+
                 );
 
             var agencia = new Agencia() { Id = 8792, Nome = "Agência Zona Oeste" };
@@ -88,7 +88,7 @@ namespace BanxoX.UnitTest
 
             var conta = new Conta() { Id = 3621, AgenciaId = 8792, NomeCliente = "Jéssica", CPFCliente = "004.887.380-24", Saldo = 100m };
             Mock.Get(contaCorrente.ContaRepository).Setup(c => c.GetById(100, 8792)).Returns(conta);
-           
+
             // act
             string msgErro;
             var result = contaCorrente.Deposito(8792, 3621, 0m, out msgErro); // valor menor igual 0
@@ -103,15 +103,31 @@ namespace BanxoX.UnitTest
         {
             // arrange
             var contaCorrente = GetContaCorrente();
-           
+
             // act
             string msgErro;
-            var result = contaCorrente.Deposito(8792, 3621, 50m, out msgErro); 
+            var result = contaCorrente.Deposito(8792, 3621, 50m, out msgErro);
 
             //assert
             Assert.IsTrue(result);
             Mock.Get(contaCorrente.ContaRepository).Verify(x => x.Save(It.Is<Conta>(c => c.AgenciaId.Equals(8792) && c.Id == 3621 && c.Saldo == 150m)));
             Mock.Get(contaCorrente.ExtratoRepository).Verify(x => x.Save(It.Is<Extrato>(e => e.AgenciaId == 8792 && e.ContaId == 3621 && e.Descricao == "Depósito" && e.Valor == 50m && e.Saldo == 150m && e.DataRegistro == DateTime.Today)));
+        }
+
+        [TestMethod]
+        public void Saque_erro_retorna_true_se_realizado_com_sucesso()
+        {
+            // arrange
+            var contaCorrente = GetContaCorrente();
+
+            // act
+            string msgErro;
+            var result = contaCorrente.Saque(8792, 3621, 50m, out msgErro);
+
+            //assert
+            Assert.IsTrue(result);
+            Mock.Get(contaCorrente.ContaRepository).Verify(x => x.Save(It.Is<Conta>(c => c.AgenciaId.Equals(8792) && c.Id == 3621 && c.Saldo == 50m)));
+            Mock.Get(contaCorrente.ExtratoRepository).Verify(x => x.Save(It.Is<Extrato>(e => e.AgenciaId == 8792 && e.ContaId == 3621 && e.Descricao == "Saque" && e.Valor == -50m && e.Saldo == 50m && e.DataRegistro == DateTime.Today)));
         }
 
         [TestMethod]
@@ -147,19 +163,59 @@ namespace BanxoX.UnitTest
         [TestMethod]
         public void Saque_ErroSeValorMenorOuIgualZero()
         {
-            Assert.Inconclusive();
+            // arrange
+            var contaCorrente = GetContaCorrente();
+
+            // act
+            string msgErro;
+            var result = contaCorrente.Saque(666, 3621, -1m, out msgErro); // valor <= 0
+
+            //assert
+            Assert.IsFalse(result);
+            Assert.AreEqual("O valor do saque precisa ser maior que zero!", msgErro);
         }
 
         [TestMethod]
         public void Saque_Erro_SEValorMaiorQueSaldoConta()
         {
-            Assert.Inconclusive();
+            // arrange
+            var contaCorrente = GetContaCorrente();
+
+            // act
+            string msgErro;
+            var result = contaCorrente.Saque(700, 3621, 800m, out msgErro); // valor > que o saldo
+
+            //assert
+            Assert.IsFalse(result);
+            Assert.AreEqual("O saque precisa ser menor ou igual ao saldo da conta!", msgErro);
         }
 
         [TestMethod]
         public void Transferencia_Retorna_True_SeRealizadoComSucesso()
         {
-            Assert.Inconclusive();
+            var agenciaOrigem = 8792;
+            var agenciaDestino = 200;
+            var contaOrigem = 3621;
+            var contaDestino = 700;
+            var valor = 50m;
+
+            // arrange
+            var contaCorrente = GetContaCorrente();
+
+            // act
+            string erro;
+            var result = contaCorrente.Transferencia(agenciaOrigem, contaOrigem, valor, agenciaDestino, contaDestino, out erro);
+
+            // assert
+            Assert.IsTrue(result);
+
+            // conta origem
+            Mock.Get(contaCorrente.ContaRepository).Verify(x => x.Save(It.Is<Conta>(c => c.AgenciaId.Equals(agenciaOrigem) && c.Id == contaOrigem && c.Saldo == valor)));
+            Mock.Get(contaCorrente.ExtratoRepository).Verify(x => x.Save(It.Is<Extrato>(e => e.AgenciaId == agenciaOrigem && e.ContaId == contaOrigem && e.Descricao == "Transferência para agência 200 conta 700" && e.Valor == -50m && e.Saldo == 50m && e.DataRegistro == DateTime.Today)));
+
+            // conta destino
+            Mock.Get(contaCorrente.ContaRepository).Verify(x => x.Save(It.Is<Conta>(c => c.AgenciaId.Equals(agenciaDestino) && c.Id == contaDestino && c.Saldo == valor)));
+            Mock.Get(contaCorrente.ExtratoRepository).Verify(x => x.Save(It.Is<Extrato>(e => e.AgenciaId == agenciaDestino && e.ContaId == contaDestino && e.Descricao == "Transferência de agencia 8692 conta 3621" && e.Valor == -50m && e.Saldo == 750m && e.DataRegistro == DateTime.Today)));
         }
 
         [TestMethod]
@@ -185,7 +241,7 @@ namespace BanxoX.UnitTest
 
             // act
             string msgErro;
-            var result = contaCorrente.Transferencia(8792, 666, 50m, 200,700, out msgErro); // conta não existe
+            var result = contaCorrente.Transferencia(8792, 666, 50m, 200, 700, out msgErro); // conta não existe
 
             //assert
             Assert.IsFalse(result);
@@ -200,7 +256,7 @@ namespace BanxoX.UnitTest
 
             // act
             string msgErro;
-            var result = contaCorrente.Transferencia(8792, 3621, 50m, 200,666, out msgErro); // ag destino inválida
+            var result = contaCorrente.Transferencia(8792, 3621, 50m, 200, 666, out msgErro); // ag destino inválida
 
             //assert
             Assert.IsFalse(result);
@@ -225,13 +281,48 @@ namespace BanxoX.UnitTest
         [TestMethod]
         public void Transferencia_Erro_SeValorMenorOuIgualZero()
         {
-            Assert.Inconclusive();
+            // arrange
+            var contaCorrente = GetContaCorrente();
+
+            // act
+            string msgErro;
+            var result = contaCorrente.Transferencia(8792, 3621, 0m, 200, 700, out msgErro);
+
+            //assert
+            Assert.IsFalse(result);
+            Assert.AreEqual("O valor deve ser maior do que zero!", msgErro);
         }
 
         [TestMethod]
         public void Transferencia_Erro_SeValorMaiorQueSaldoContaOrigem()
         {
-            Assert.Inconclusive();
+            // arrange
+            var contaCorrente = GetContaCorrente();
+
+            // act
+            string msgErro;
+            var result = contaCorrente.Saque(8792, 3621, 1000m, out msgErro); // valor < saldo
+
+            //assert
+            Assert.IsFalse(result);
+            Assert.AreEqual("O valor deve ser maior ou igual ao saldo da conta de origem!", msgErro);
+        }
+
+        [TestMethod]
+        public void Saldo_RetornaSaldoDaConta()
+        {
+            var conta = 3621;
+            var agencia = 8792;
+
+            // arrange
+            var contaCorrente = GetContaCorrente();
+
+            // act
+            string msgErro;
+            var result = contaCorrente.Saldo(conta, agencia, out msgErro);
+
+            //assert
+            Assert.AreEqual(100m, result);
         }
 
         [TestMethod]
@@ -257,7 +348,7 @@ namespace BanxoX.UnitTest
 
             // act
             string msgErro;
-            var result = contaCorrente.Extrato(666, 8792, new DateTime(2020,02,01), new DateTime(2020, 02, 16), out msgErro);
+            var result = contaCorrente.Extrato(666, 8792, new DateTime(2020, 02, 01), new DateTime(2020, 02, 16), out msgErro);
 
             //assert
             Assert.IsNull(result);
@@ -293,7 +384,7 @@ namespace BanxoX.UnitTest
 
             // act
             string msgErro;
-            var result = contaCorrente.Extrato(8792, 55, new DateTime(2020,01,01), new DateTime(2020, 01, 15), out msgErro); // conta não existe
+            var result = contaCorrente.Extrato(8792, 55, new DateTime(2020, 01, 01), new DateTime(2020, 01, 15), out msgErro); // conta não existe
 
             //assert
             Assert.IsNull(result);
@@ -303,13 +394,37 @@ namespace BanxoX.UnitTest
         [TestMethod]
         public void Extrato_Erro_SeDataInicioMaiorDataFim()
         {
-            Assert.Inconclusive();
+            var agencia = 8792;
+            var conta = 3621;
+
+            // arrange
+            var contaCorrente = GetContaCorrente();
+
+            // act
+            string msgErro;
+            var result = contaCorrente.Extrato(agencia, conta, new DateTime(2021, 01, 01), new DateTime(2020, 01, 15), out msgErro); // dataIni > dataFim
+
+            //assert
+            Assert.IsNull(result);
+            Assert.AreEqual("A data de inicio deve ser menor que a data fim!", msgErro);
         }
 
         [TestMethod]
         public void Extrato_Erro_SePeriodoMaior120Dias()
         {
-            Assert.Inconclusive();
+            var agencia = 8792;
+            var conta = 3621;
+
+            // arrange
+            var contaCorrente = GetContaCorrente();
+
+            // act
+            string msgErro;
+            var result = contaCorrente.Extrato(agencia, conta, new DateTime(2020, 01, 01), (new DateTime(2020, 01, 15)).AddDays(121), out msgErro); // periodo > 120 dias
+
+            //assert
+            Assert.IsNull(result);
+            Assert.AreEqual("O periodo não deve ser supeior há 120 dias!", msgErro);
         }
         [TestMethod]
         public void Extrato_PrimeiraLinhaContemSaldoAnterior()
