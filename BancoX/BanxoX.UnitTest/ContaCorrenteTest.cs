@@ -1,8 +1,10 @@
 ﻿using System;
 using BancoX;
 using BancoX.Interface;
+using FizzWare.NBuilder;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using System.Linq;
 
 namespace BanxoX.UnitTest
 {
@@ -58,7 +60,16 @@ namespace BanxoX.UnitTest
         [TestMethod]
         public void Deposito_Erro_SeContaNaoExistir()
         {
-            Assert.Inconclusive();
+            // arrange
+            var contaCorrente = GetContaCorrente();
+
+            // act
+            string msgErro;
+            var result = contaCorrente.Deposito(8792, 000, 100m, out msgErro);
+
+            //asserta
+            Assert.IsFalse(result);
+            Assert.AreEqual("Conta inválida!", msgErro); ;
         }
 
         [TestMethod]
@@ -341,21 +352,6 @@ namespace BanxoX.UnitTest
         }
 
         [TestMethod]
-        public void Extrato_erro_SeAgenciaNaoExistir()
-        {
-            // arrange
-            var contaCorrente = GetContaCorrente();
-
-            // act
-            string msgErro;
-            var result = contaCorrente.Extrato(666, 8792, new DateTime(2020, 02, 01), new DateTime(2020, 02, 16), out msgErro);
-
-            //assert
-            Assert.IsNull(result);
-            Assert.AreEqual("Agência inválida!", msgErro);
-        }
-
-        [TestMethod]
         public void SaldoErro_SeContaNaoExistirNaAgencia()
         {
             // arrange
@@ -368,6 +364,47 @@ namespace BanxoX.UnitTest
             //assert
             Assert.AreEqual(0m, result);
             Assert.AreEqual("Conta de origem é invalida!", msgErro);
+        }
+
+        [TestMethod]
+        public void Extrato_RetornaRegistrosDoExtrato()
+        {
+            // arrange
+            var contaCorrente = GetContaCorrente();
+            var dataInicio = new DateTime(2020, 02, 01);
+            var dataFim = new DateTime(2020, 02, 16);
+            var agencia = 8792;
+            var conta = 8792;
+
+            // cria uma lista de Extrato
+            var listaExtrato = Builder<Extrato>.CreateListOfSize(10).All()
+                         .With(x => x.AgenciaId = conta).With(x => x.ContaId = conta).Build();
+
+            Mock.Get(contaCorrente.ExtratoRepository).Setup(x => x.GetByPeriodo(agencia, conta, dataInicio, dataFim)).Returns(listaExtrato);
+
+            // act
+            string msgErro;
+            var result = contaCorrente.Extrato(agencia, conta, dataInicio, dataFim, out msgErro);
+
+            //assert
+            Assert.IsNull(result);
+            Assert.AreEqual(11,  result.Count);
+            Assert.AreEqual(listaExtrato.Sum(e=> e.Valor), result.Sum(r=> r.Valor));
+        }
+
+        [TestMethod]
+        public void Extrato_erro_SeAgenciaNaoExistir()
+        {
+            // arrange
+            var contaCorrente = GetContaCorrente();
+
+            // act
+            string msgErro;
+            var result = contaCorrente.Extrato(666, 8792, new DateTime(2020, 02, 01), new DateTime(2020, 02, 16), out msgErro);
+
+            //assert
+            Assert.IsNull(result);
+            Assert.AreEqual("Agência inválida!", msgErro);
         }
 
         [TestMethod]
@@ -429,7 +466,27 @@ namespace BanxoX.UnitTest
         [TestMethod]
         public void Extrato_PrimeiraLinhaContemSaldoAnterior()
         {
-            Assert.Inconclusive();
+            // arrange
+            var contaCorrente = GetContaCorrente();
+            var dataInicio = new DateTime(2020, 02, 01);
+            var dataFim = new DateTime(2020, 02, 16);
+            var agencia = 8792;
+            var conta = 8792;
+
+            // cria uma lista de Extrato
+            var listaExtrato = Builder<Extrato>.CreateListOfSize(10).All()
+                         .With(x => x.AgenciaId = conta).With(x => x.ContaId = conta).Build();
+
+            Mock.Get(contaCorrente.ExtratoRepository).Setup(x => x.GetByPeriodo(agencia, conta, dataInicio, dataFim)).Returns(listaExtrato);
+            Mock.Get(contaCorrente.ExtratoRepository).Setup(x => x.GetSaldoAnterior(agencia, conta, dataInicio, dataFim)).Returns(30);
+
+            // act
+            string msgErro;
+            var result = contaCorrente.Extrato(agencia, conta, dataInicio, dataFim, out msgErro);
+
+            //assert
+            Assert.AreEqual("Saldo anterior", result.First().Descricao);
+            Assert.AreEqual(30m, result.First().Saldo);
         }
     }
 }

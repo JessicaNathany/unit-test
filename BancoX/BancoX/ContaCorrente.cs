@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.Transactions;
 
 namespace BancoX
 {
@@ -22,6 +23,47 @@ namespace BancoX
 
         public bool Deposito(int agencia, int conta, decimal valor, out string mensagemErro)
         {
+            var ag = AgenciaRepository.GetById(agencia);
+
+            if(ag == null)
+            {
+                mensagemErro = "Agência inválida!";
+                return false;
+            }
+
+            var contaCorrente = ContaRepository.GetById(agencia, conta);
+
+            if(contaCorrente == null)
+            {
+                mensagemErro = "Conta inválida!";
+                return false;
+            }
+
+            if(valor <= 0)
+            {
+                mensagemErro = "O valor~do depósito deve ser maior que zero!";
+                return false;
+            }
+
+            contaCorrente.Saldo = contaCorrente.Saldo + valor;
+
+            var extrato = new Extrato()
+            {
+                DataRegistro = DateTime.Now,
+                AgenciaId = agencia,
+                ContaId = conta,
+                Valor = valor,
+                Saldo = contaCorrente.Saldo,
+                Descricao = "Depoósito"
+            };
+
+            using (var transaction = new TransactionScope())
+            {
+                ContaRepository.Save(contaCorrente);
+                ExtratoRepository.Save(extrato);
+            }
+                
+
             throw new NotImplementedException();
         }
 
