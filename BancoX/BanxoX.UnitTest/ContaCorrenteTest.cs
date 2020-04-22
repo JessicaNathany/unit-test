@@ -36,9 +36,20 @@ namespace BanxoX.UnitTest
         }
 
         [TestMethod]
-        public void Deposito_RetornaTrueSeRealiadoComSucesso()
+        public void Deposito_RetornaTrueSeRealiadoComSucesso() 
         {
-            Assert.Inconclusive();
+            // arrange
+            var contaCorrente = GetContaCorrente();
+
+            var agencia = 8792;
+            var conta = 36921;
+
+            // act
+            string msgErro;
+            var result = contaCorrente.Deposito(agencia, conta, 100m, out msgErro);
+
+            //assert
+            Assert.IsTrue(result);
         }
 
 
@@ -58,14 +69,16 @@ namespace BanxoX.UnitTest
         }
 
         [TestMethod]
-        public void Deposito_Erro_SeContaNaoExistir()
+        public void Deposito_Erro_SeContaNaoExistir() // teste com erro valor agencia está null no método Depósito
         {
+            var agencia = 8792;
+
             // arrange
             var contaCorrente = GetContaCorrente();
 
             // act
             string msgErro;
-            var result = contaCorrente.Deposito(8792, 000, 100m, out msgErro);
+            var result = contaCorrente.Deposito(agencia, 000, 100m, out msgErro);
 
             //asserta
             Assert.IsFalse(result);
