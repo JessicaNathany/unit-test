@@ -23,13 +23,13 @@ namespace BanxoX.UnitTest
             var agencia = new Agencia() { Id = 8792, Nome = "Agência Zona Oeste" };
             var agencia2 = new Agencia() { Id = 200, Nome = "Agência Zona Leste" };
 
-            Mock.Get(contaCorrente.AgenciaRepository).Setup(x => x.GetById(100)).Returns(agencia);
+            Mock.Get(contaCorrente.AgenciaRepository).Setup(x => x.GetById(8792)).Returns(agencia);
             Mock.Get(contaCorrente.AgenciaRepository).Setup(x => x.GetById(200)).Returns(agencia);
 
             var conta = new Conta() { Id = 3621, AgenciaId = 8792, NomeCliente = "Jéssica", CPFCliente = "004.887.380-24", Saldo = 100m };
             var conta2 = new Conta() { Id = 700, AgenciaId = 200, NomeCliente = "Peter Pan", CPFCliente = "004.111.350-24", Saldo = 700m };
 
-            Mock.Get(contaCorrente.ContaRepository).Setup(c => c.GetById(100, 8792)).Returns(conta);
+            Mock.Get(contaCorrente.ContaRepository).Setup(c => c.GetById(8792, 3621)).Returns(conta);
             Mock.Get(contaCorrente.ContaRepository).Setup(c => c.GetById(200, 700)).Returns(conta2);
 
             return contaCorrente;
@@ -69,7 +69,7 @@ namespace BanxoX.UnitTest
         }
 
         [TestMethod]
-        public void Deposito_Erro_SeContaNaoExistir() // teste com erro valor agencia está null no método Depósito
+        public void Deposito_Erro_SeContaNaoExistir()
         {
             var agencia = 8792;
 
@@ -106,20 +106,13 @@ namespace BanxoX.UnitTest
             // arrange
             var contaCorrente = GetContaCorrente();
 
-
-            var agencia = new Agencia() { Id = 8792, Nome = "Agência Zona Oeste" };
-            Mock.Get(contaCorrente.AgenciaRepository).Setup(x => x.GetById(100)).Returns(agencia);
-
-            var conta = new Conta() { Id = 3621, AgenciaId = 8792, NomeCliente = "Jéssica", CPFCliente = "004.887.380-24", Saldo = 100m };
-            Mock.Get(contaCorrente.ContaRepository).Setup(c => c.GetById(100, 8792)).Returns(conta);
-
             // act
             string msgErro;
-            var result = contaCorrente.Deposito(8792, 3621, 0m, out msgErro); // valor menor igual 0
+            var result = contaCorrente.Deposito(8792, 3621, 0m, out msgErro); // valor <= 0
 
             //assert
             Assert.IsFalse(result);
-            Assert.AreEqual("Valor do depósito deverá ser maior do que 0", msgErro);
+            Assert.AreEqual("Valor do depósito deve ser maior do que 0!", msgErro);
         }
 
         [TestMethod]

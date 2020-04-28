@@ -44,7 +44,7 @@ namespace BancoX
 
             if (valor <= 0)
             {
-                mensagemErro = "O valor do depósito deve ser maior que zero!";
+                mensagemErro = "Valor do depósito deve ser maior do que 0!";
                 return false;
             }
 
@@ -52,7 +52,7 @@ namespace BancoX
 
             var extrato = new Extrato()
             {
-                DataRegistro = DateTime.Now,
+                DataRegistro = DateTime.Today,
                 AgenciaId = idAgencia,
                 ContaId = conta,
                 Valor = valor,
