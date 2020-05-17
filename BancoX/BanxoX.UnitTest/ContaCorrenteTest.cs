@@ -42,7 +42,7 @@ namespace BanxoX.UnitTest
             var contaCorrente = GetContaCorrente();
 
             var agencia = 8792;
-            var conta = 36921;
+            var conta = 3621;
 
             // act
             string msgErro;
@@ -82,7 +82,7 @@ namespace BanxoX.UnitTest
 
             //asserta
             Assert.IsFalse(result);
-            Assert.AreEqual("Conta inválida!", msgErro); ;
+            Assert.AreEqual("Conta inválida!", msgErro); 
         }
 
         [TestMethod]
@@ -132,7 +132,7 @@ namespace BanxoX.UnitTest
         }
 
         [TestMethod]
-        public void Saque_erro_retorna_true_se_realizado_com_sucesso()
+        public void Saque_Retorna_true_se_realizado_com_sucesso()
         {
             // arrange
             var contaCorrente = GetContaCorrente();
@@ -144,7 +144,7 @@ namespace BanxoX.UnitTest
             //assert
             Assert.IsTrue(result);
             Mock.Get(contaCorrente.ContaRepository).Verify(x => x.Save(It.Is<Conta>(c => c.AgenciaId.Equals(8792) && c.Id == 3621 && c.Saldo == 50m)));
-            Mock.Get(contaCorrente.ExtratoRepository).Verify(x => x.Save(It.Is<Extrato>(e => e.AgenciaId == 8792 && e.ContaId == 3621 && e.Descricao == "Saque" && e.Valor == -50m && e.Saldo == 50m && e.DataRegistro == DateTime.Today)));
+            Mock.Get(contaCorrente.ExtratoRepository).Verify(x => x.Save(It.Is<Extrato>(e => e.AgenciaId == 8792 && e.ContaId == 3621 && e.Descricao == "Saque" && e.Valor == -50m && e.Saldo == -50m && e.DataRegistro == DateTime.Now)));
         }
 
         [TestMethod]
@@ -155,11 +155,11 @@ namespace BanxoX.UnitTest
 
             // act
             string msgErro;
-            var result = contaCorrente.Saque(8792, 666, 50m, out msgErro); // conta não existe
+            var result = contaCorrente.Saque(666, 36921, 50m, out msgErro); // conta não existe
 
             //assert
             Assert.IsFalse(result);
-            Assert.AreEqual("Agência é invalida!", msgErro);
+            Assert.AreEqual("Agência inválida!", msgErro);
         }
 
         [TestMethod]
@@ -170,11 +170,11 @@ namespace BanxoX.UnitTest
 
             // act
             string msgErro;
-            var result = contaCorrente.Saque(666, 3621, 50m, out msgErro); // conta não existe
+            var result = contaCorrente.Saque(8792, 666, 50m, out msgErro); // conta não existe
 
             //assert
             Assert.IsFalse(result);
-            Assert.AreEqual("Conta é invalida!", msgErro);
+            Assert.AreEqual("Conta inválida!", msgErro);
         }
 
         [TestMethod]
@@ -185,7 +185,7 @@ namespace BanxoX.UnitTest
 
             // act
             string msgErro;
-            var result = contaCorrente.Saque(666, 3621, -1m, out msgErro); // valor <= 0
+            var result = contaCorrente.Saque(8792, 3621, -1m, out msgErro); // valor <= 0
 
             //assert
             Assert.IsFalse(result);
@@ -193,18 +193,18 @@ namespace BanxoX.UnitTest
         }
 
         [TestMethod]
-        public void Saque_Erro_SEValorMaiorQueSaldoConta()
+        public void Saque_Erro_SeValorMaiorQueSaldoConta()
         {
             // arrange
             var contaCorrente = GetContaCorrente();
 
             // act
             string msgErro;
-            var result = contaCorrente.Saque(700, 3621, 800m, out msgErro); // valor > que o saldo
+            var result = contaCorrente.Saque(200, 700, 800m, out msgErro); // valor > que o saldo
 
             //assert
             Assert.IsFalse(result);
-            Assert.AreEqual("O saque precisa ser menor ou igual ao saldo da conta!", msgErro);
+            Assert.AreEqual("O valor do saque precisa ser menor ou igual ao saldo da conta!", msgErro);
         }
 
         [TestMethod]

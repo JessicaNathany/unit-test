@@ -57,7 +57,7 @@ namespace BancoX
                 ContaId = conta,
                 Valor = valor,
                 Saldo = contaCorrente.Saldo,
-                Descricao = "Depoósito"
+                Descricao = "Depósito"
             };
 
             try
@@ -119,7 +119,7 @@ namespace BancoX
                 ContaId = conta,
                 Valor = valor * - 1,
                 Saldo = contaCorrente.Saldo,
-                Descricao = "Depoósito"
+                Descricao = "Saque"
             };
 
             try
