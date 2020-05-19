@@ -36,7 +36,7 @@ namespace BanxoX.UnitTest
         }
 
         [TestMethod]
-        public void Deposito_RetornaTrueSeRealiadoComSucesso() 
+        public void ContaCorrente_Deposito_RetornaTrueSeRealiadoComSucesso() 
         {
             // arrange
             var contaCorrente = GetContaCorrente();
@@ -54,7 +54,7 @@ namespace BanxoX.UnitTest
 
 
         [TestMethod]
-        public void Deposito_Erro_SeAgenciaNaoExistir()
+        public void ContaCorrente_Deposito_ErroSeAgenciaNaoExistir()
         {
             // arrange
             var contaCorrente = GetContaCorrente();
@@ -69,7 +69,7 @@ namespace BanxoX.UnitTest
         }
 
         [TestMethod]
-        public void Deposito_Erro_SeContaNaoExistir()
+        public void ContaCorrente_Deposito_ErroSeContaNaoExistir()
         {
             var agencia = 8792;
 
@@ -86,7 +86,7 @@ namespace BanxoX.UnitTest
         }
 
         [TestMethod]
-        public void Deposito_Erro_SeContaNaoExistirNaAgencia()
+        public void ContaCorrente_Deposito_ErroSeContaNaoExistirNaAgencia()
         {
             // arrange
             var contaCorrente = GetContaCorrente();
@@ -101,7 +101,7 @@ namespace BanxoX.UnitTest
         }
 
         [TestMethod]
-        public void Deposito_Erro_SeValorMenorOuIgualZero()
+        public void ContaCorrente_Deposito_ErroSeValorMenorOuIgualZero()
         {
             // arrange
             var contaCorrente = GetContaCorrente();
@@ -116,7 +116,7 @@ namespace BanxoX.UnitTest
         }
 
         [TestMethod]
-        public void Deposito_RetornaTrueSeRealizadoComSucesso()
+        public void ContaCorrente_Deposito_RetornaTrueSeRealizadoComSucesso()
         {
             // arrange
             var contaCorrente = GetContaCorrente();
@@ -132,7 +132,7 @@ namespace BanxoX.UnitTest
         }
 
         [TestMethod]
-        public void Saque_Retorna_true_se_realizado_com_sucesso()
+        public void ContaCorrente_Saque_RetornaTrueSeSaqueRealizadoComSucesso()
         {
             // arrange
             var contaCorrente = GetContaCorrente();
@@ -148,7 +148,7 @@ namespace BanxoX.UnitTest
         }
 
         [TestMethod]
-        public void Saque_Erro_SeAgenciaNaoExistir()
+        public void ContaCorrente_Saque_ErroSeAgenciaNaoExistir()
         {
             // arrange
             var contaCorrente = GetContaCorrente();
@@ -163,7 +163,7 @@ namespace BanxoX.UnitTest
         }
 
         [TestMethod]
-        public void Saque_ErroSeContaNaoExistirNaAgencia()
+        public void ContaCorrente_Saque_ErroSeContaNaoExistirNaAgencia()
         {
             // arrange
             var contaCorrente = GetContaCorrente();
@@ -178,7 +178,7 @@ namespace BanxoX.UnitTest
         }
 
         [TestMethod]
-        public void Saque_ErroSeValorMenorOuIgualZero()
+        public void ContaCorrente_Saque_ErroSeValorMenorOuIgualZero()
         {
             // arrange
             var contaCorrente = GetContaCorrente();
@@ -193,7 +193,7 @@ namespace BanxoX.UnitTest
         }
 
         [TestMethod]
-        public void Saque_Erro_SeValorMaiorQueSaldoConta()
+        public void ContaCorrente_Saque_ErroSeValorMaiorQueSaldoConta()
         {
             // arrange
             var contaCorrente = GetContaCorrente();
@@ -208,7 +208,7 @@ namespace BanxoX.UnitTest
         }
 
         [TestMethod]
-        public void Transferencia_Retorna_True_SeRealizadoComSucesso()
+        public void ContaCorrente_Transferencia_RetornaTrueSeRealizadoComSucesso()
         {
             var agenciaOrigem = 8792;
             var agenciaDestino = 200;
@@ -236,7 +236,7 @@ namespace BanxoX.UnitTest
         }
 
         [TestMethod]
-        public void Transferencia_Erro_SeAgenciaOrigemNaoExistir()
+        public void ContaCorrente_Transferencia_ErroSeAgenciaOrigemNaoExistir()
         {
             // arrange
             var contaCorrente = GetContaCorrente();
@@ -251,7 +251,7 @@ namespace BanxoX.UnitTest
         }
 
         [TestMethod]
-        public void Transferencia_Erro_SeContaOrigemNaoExistirNaAgencia()
+        public void ContaCorrente_Transferencia_ErroSeContaOrigemNaoExistirNaAgencia()
         {
             // arrange
             var contaCorrente = GetContaCorrente();
@@ -266,7 +266,7 @@ namespace BanxoX.UnitTest
         }
 
         [TestMethod]
-        public void Transferencia_Erro_SeAgenciaDestinoNaoExistir()
+        public void ContaCorrente_Transferencia_ErroSeAgenciaDestinoNaoExistir()
         {
             // arrange
             var contaCorrente = GetContaCorrente();
@@ -281,7 +281,7 @@ namespace BanxoX.UnitTest
         }
 
         [TestMethod]
-        public void Transferencia_Erro_SeContaDestinoNaoExistirNaAgencia()
+        public void ContaCorrente_Transferencia_ErroSeContaDestinoNaoExistirNaAgencia()
         {
             // arrange
             var contaCorrente = GetContaCorrente();
@@ -296,7 +296,7 @@ namespace BanxoX.UnitTest
         }
 
         [TestMethod]
-        public void Transferencia_Erro_SeValorMenorOuIgualZero()
+        public void ContaCorrente_Transferencia_ErroSeValorMenorOuIgualZero()
         {
             // arrange
             var contaCorrente = GetContaCorrente();
@@ -311,7 +311,7 @@ namespace BanxoX.UnitTest
         }
 
         [TestMethod]
-        public void Transferencia_Erro_SeValorMaiorQueSaldoContaOrigem()
+        public void ContaCorrente_Transferencia_ErroSeValorMaiorQueSaldoContaOrigem()
         {
             // arrange
             var contaCorrente = GetContaCorrente();
@@ -326,7 +326,7 @@ namespace BanxoX.UnitTest
         }
 
         [TestMethod]
-        public void Saldo_RetornaSaldoDaConta()
+        public void ContaCorrente_Saldo_RetornaSaldoDaConta()
         {
             var conta = 3621;
             var agencia = 8792;
@@ -343,7 +343,7 @@ namespace BanxoX.UnitTest
         }
 
         [TestMethod]
-        public void SaldoErro_SeAgenciaNaoExistir()
+        public void ContaCorrente_Saldo_ErroSeAgenciaNaoExistir()
         {
             // arrange
             var contaCorrente = GetContaCorrente();
@@ -358,7 +358,7 @@ namespace BanxoX.UnitTest
         }
 
         [TestMethod]
-        public void SaldoErro_SeContaNaoExistirNaAgencia()
+        public void ContaCorrente_Saldo_ErroSeContaNaoExistirNaAgencia()
         {
             // arrange
             var contaCorrente = GetContaCorrente();
@@ -373,7 +373,7 @@ namespace BanxoX.UnitTest
         }
 
         [TestMethod]
-        public void Extrato_RetornaRegistrosDoExtrato()
+        public void ContaCorrente_Extrato_RetornaRegistrosDoExtrato()
         {
             // arrange
             var contaCorrente = GetContaCorrente();
@@ -399,7 +399,7 @@ namespace BanxoX.UnitTest
         }
 
         [TestMethod]
-        public void Extrato_erro_SeAgenciaNaoExistir()
+        public void ContaCorrente_Extrato_ErroSeAgenciaNaoExistir()
         {
             // arrange
             var contaCorrente = GetContaCorrente();
@@ -414,13 +414,13 @@ namespace BanxoX.UnitTest
         }
 
         [TestMethod]
-        public void Extrato_RetornaRegistroExtrato()
+        public void ContaCorrente_Extrato_RetornaRegistroExtrato()
         {
             Assert.Inconclusive();
         }
 
         [TestMethod]
-        public void Extrato_Erro_SeContaNaoExistirNaAgencia()
+        public void ContaCorrente_Extrato_ErroSeContaNaoExistirNaAgencia()
         {
             // arrange
             var contaCorrente = GetContaCorrente();
@@ -435,7 +435,7 @@ namespace BanxoX.UnitTest
         }
 
         [TestMethod]
-        public void Extrato_Erro_SeDataInicioMaiorDataFim()
+        public void ContaCorrente_Extrato_ErroSeDataInicioMaiorDataFim()
         {
             var agencia = 8792;
             var conta = 3621;
@@ -453,7 +453,7 @@ namespace BanxoX.UnitTest
         }
 
         [TestMethod]
-        public void Extrato_Erro_SePeriodoMaior120Dias()
+        public void ContaCorrente_Extrato_ErroSePeriodoMaior120Dias()
         {
             var agencia = 8792;
             var conta = 3621;
@@ -470,7 +470,7 @@ namespace BanxoX.UnitTest
             Assert.AreEqual("O periodo não deve ser supeior há 120 dias!", msgErro);
         }
         [TestMethod]
-        public void Extrato_PrimeiraLinhaContemSaldoAnterior()
+        public void ContaCorrente_Extrato_PrimeiraLinhaContemSaldoAnterior()
         {
             // arrange
             var contaCorrente = GetContaCorrente();
