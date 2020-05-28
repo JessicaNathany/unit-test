@@ -6,11 +6,11 @@ Os testes foram criados com as classes ContaCorrente e Investimento, até o mome
 
 A classe ContaCorrenteTest, foi criada utilizando o Microsoft.VisualStudio.TestTools.UnitTesting as demais classes foram utilizadas o frameweork  XUnit conforme descrito no pacote abaixo:
 
-#Pacotes utilizados
+#•Pacotes utilizados
 
-• Moq
-• NBuilder
-• MSTest.TestAdapter
-• MSTest.TestFramework
-• Install-Package xunit -Version 2.4.1
-• Install-Package xunit.runner.visualstudio -Version 2.4.1
+- Moq
+- NBuilder
+- MSTest.TestAdapter
+- MSTest.TestFramework
+- Install-Package xunit -Version 2.4.1
+- Install-Package xunit.runner.visualstudio -Version 2.4.1
