@@ -8,9 +8,9 @@ A classe ContaCorrenteTest, foi criada utilizando o Microsoft.VisualStudio.TestT
 
 #Pacotes utilizados
 
-- Moq
-- NBuilder
-- MSTest.TestAdapter
-- MSTest.TestFramework
-- Install-Package xunit -Version 2.4.1
-- Install-Package xunit.runner.visualstudio -Version 2.4.1
+• Moq
+• NBuilder
+• MSTest.TestAdapter
+• MSTest.TestFramework
+• Install-Package xunit -Version 2.4.1
+• Install-Package xunit.runner.visualstudio -Version 2.4.1
