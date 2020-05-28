@@ -1,12 +1,12 @@
 ﻿using System;
 using BancoX;
 using BancoX.Interface;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using Xunit;
 
 namespace BanxoX.UnitTest
 {
-    [TestClass]
+  
     public class TesouroDiretoTest
     {
         private Carteira GetCarteira()
@@ -19,13 +19,13 @@ namespace BanxoX.UnitTest
             return carteira;
         }
 
-        [TestMethod]
+        [Fact]
         public void Erro_TituloNaoExiste()
         {
-            Assert.Inconclusive();
+            
         }
 
-        [TestMethod]
+        [Fact]
         public void Investir_CarteiraInvestidorNaoExiste_Erro()
         {
             // arrange
@@ -36,62 +36,62 @@ namespace BanxoX.UnitTest
             // assert
         }
 
-        [TestMethod]
+        [Fact]
         public void CarteiraInvestidorSaldoInferior_Erro()
         {
-            Assert.Inconclusive();
+            throw new NotImplementedException();
 
             // carteira do investidor sem saldo
         }
 
-        [TestMethod]
+        [Fact]
         public void Investir_ValorMaiorQueValorMinimoDoTitulo()
         {
-            Assert.Inconclusive();
+            throw new NotImplementedException();
         }
 
-        [TestMethod]
+        [Fact]
         public void ResgateNaoDeveSerMaiorQueSeisMesesDoValorDoTitulo_Erro()
         {
-            Assert.Inconclusive();
 
+            throw new NotImplementedException();
             //quando tentar sacar menos de seis meses da data da aplicação
         }
 
-        [TestMethod]
+        [Fact]
         public void CobrancaImpostoRendaAteSeisMeses_Sucess()
         {
-            Assert.Inconclusive();
+            throw new NotImplementedException();
 
             // regra do desconto do imposto de renda ao resgatar em até seis meses da data da aplicação
 
             // desconto IR 22,5%
         }
 
-        [TestMethod]
+        [Fact]
         public void CobrancaImpostoRendaAteUmAno_Sucess()
         {
-            Assert.Inconclusive();
+            throw new NotImplementedException();
 
             // regra do desconto do imposto de renda ao resgatar em até um ano da data da aplicação
 
             // desconto IR 20%
         }
 
-        [TestMethod]
+        [Fact]
         public void CobrancaImpostoRendaAteDoisAno_Sucess()
         {
-            Assert.Inconclusive();
+            throw new NotImplementedException();
 
             // regra do desconto do imposto de renda ao resgatar em até dois anos da data da aplicação
 
             // desconto IR 17, 5%
         }
 
-        [TestMethod]
+        [Fact]
         public void CobrancaImpostoRendaAcimaDoisAno_Sucess()
         {
-            Assert.Inconclusive();
+            throw new NotImplementedException();
 
             // regra do desconto do imposto de renda ao resgatar em até dois anos da data da aplicação
 

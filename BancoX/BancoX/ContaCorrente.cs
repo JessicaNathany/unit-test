@@ -1,12 +1,11 @@
 ﻿using BancoX.Interface;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Transactions;
 
 namespace BancoX
 {
-    [TestClass]
+   
     public class ContaCorrente : IContaCorrente
     {
         public ContaCorrente(IAgenciaRepository agenciaRepository, IContaRepository contaRepository, IExtratoRepository extratoRepository)
