@@ -318,7 +318,7 @@ namespace BanxoX.UnitTest
 
             // act
             string msgErro;
-            var result = contaCorrente.Saque(8792, 3621, 1000m, out msgErro); // valor < saldo
+            var result = contaCorrente.Saque(8792, 3621, 1000m, out msgErro); 
 
             //assert
             Assert.IsFalse(result);
@@ -416,7 +416,15 @@ namespace BanxoX.UnitTest
         [TestMethod]
         public void ContaCorrente_Extrato_RetornaRegistroExtrato()
         {
-            Assert.Inconclusive();
+            // arrange
+            
+
+
+            // act
+          
+
+            // assert
+
         }
 
         [TestMethod]

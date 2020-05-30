@@ -26,7 +26,7 @@ namespace BanxoX.UnitTest
         }
 
         [Fact]
-        public void Investir_CarteiraInvestidorNaoExiste_Erro()
+        public void TesouroDireto_CarteiraInvestidorNaoExiste_Erro()
         {
             // arrange
 
@@ -37,7 +37,7 @@ namespace BanxoX.UnitTest
         }
 
         [Fact]
-        public void CarteiraInvestidorSaldoInferior_Erro()
+        public void TesouroDireto_CarteiraInvestidorSaldoInferior_Erro()
         {
             throw new NotImplementedException();
 
@@ -45,13 +45,13 @@ namespace BanxoX.UnitTest
         }
 
         [Fact]
-        public void Investir_ValorMaiorQueValorMinimoDoTitulo()
+        public void TesouroDireto_ValorMaiorQueValorMinimoDoTitulo()
         {
             throw new NotImplementedException();
         }
 
         [Fact]
-        public void ResgateNaoDeveSerMaiorQueSeisMesesDoValorDoTitulo_Erro()
+        public void TesouroDireto_ResgateNaoDeveSerMaiorQueSeisMesesDoValorDoTitulo_Erro()
         {
 
             throw new NotImplementedException();
@@ -59,7 +59,7 @@ namespace BanxoX.UnitTest
         }
 
         [Fact]
-        public void CobrancaImpostoRendaAteSeisMeses_Sucess()
+        public void TesouroDireto_CobrancaImpostoRendaAteSeisMeses_Sucess()
         {
             throw new NotImplementedException();
 
@@ -69,7 +69,7 @@ namespace BanxoX.UnitTest
         }
 
         [Fact]
-        public void CobrancaImpostoRendaAteUmAno_Sucess()
+        public void TesouroDireto_CobrancaImpostoRendaAteUmAno_Sucess()
         {
             throw new NotImplementedException();
 
@@ -79,7 +79,7 @@ namespace BanxoX.UnitTest
         }
 
         [Fact]
-        public void CobrancaImpostoRendaAteDoisAno_Sucess()
+        public void TesouroDireto_CobrancaImpostoRendaAteDoisAno_Sucess()
         {
             throw new NotImplementedException();
 
@@ -89,7 +89,7 @@ namespace BanxoX.UnitTest
         }
 
         [Fact]
-        public void CobrancaImpostoRendaAcimaDoisAno_Sucess()
+        public void TesouroDireto_CobrancaImpostoRendaAcimaDoisAno_Sucess()
         {
             throw new NotImplementedException();
 
