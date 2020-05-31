@@ -255,29 +255,37 @@ namespace BanxoX.UnitTest
         {
             // arrange
             var contaCorrente = GetContaCorrente();
+            var agOrigem = 8792;
+            var contaOrigem = 0;
+            var agDestino = 200;
+            var contaDestino = 700;
 
             // act
             string msgErro;
-            var result = contaCorrente.Transferencia(8792, 666, 50m, 200, 700, out msgErro); // conta não existe
+            var result = contaCorrente.Transferencia(agOrigem, contaOrigem, 50m, agDestino, contaDestino, out msgErro); // conta não existe
 
             //assert
             Assert.IsFalse(result);
-            Assert.AreEqual("Conta de origem é invalida!", msgErro);
+            Assert.AreEqual("Conta de origem inválida!", msgErro);
         }
 
         [TestMethod]
-        public void ContaCorrente_Transferencia_ErroSeAgenciaDestinoNaoExistir()
+        public void ContaCorrente_Transferencia_ErroSeAgenciaDestinoNaoExiste()
         {
             // arrange
             var contaCorrente = GetContaCorrente();
+            var agOrigem = 8792;
+            var contaOrigem = 3621;
+            var agDestino = 0;
+            var contaDestino = 666;
 
             // act
             string msgErro;
-            var result = contaCorrente.Transferencia(8792, 3621, 50m, 200, 666, out msgErro); // ag destino inválida
+            var result = contaCorrente.Transferencia(agOrigem, contaOrigem, 50m, agDestino, contaDestino, out msgErro); // ag destino inválida
 
             //assert
             Assert.IsFalse(result);
-            Assert.AreEqual("Conta de destino inv", msgErro);
+            Assert.AreEqual("Agência de destino inválida!", msgErro);
         }
 
         [TestMethod]
@@ -285,14 +293,18 @@ namespace BanxoX.UnitTest
         {
             // arrange
             var contaCorrente = GetContaCorrente();
+            var agOrigem = 8792;
+            var contaOrigem = 3621;
+            var agDestino = 200;
+            var contaDestino = 0;
 
             // act
             string msgErro;
-            var result = contaCorrente.Transferencia(8792, 3621, 50m, 200, 666, out msgErro); // valor menor igual 0
+            var result = contaCorrente.Transferencia(agOrigem, contaOrigem, 50m, agDestino, contaDestino, out msgErro); 
 
             //assert
             Assert.IsFalse(result);
-            Assert.AreEqual("Valor do depósito deverá ser maior do que 0", msgErro);
+            Assert.AreEqual("Conta de destino inválida!", msgErro);
         }
 
         [TestMethod]
@@ -328,8 +340,8 @@ namespace BanxoX.UnitTest
         [TestMethod]
         public void ContaCorrente_Saldo_RetornaSaldoDaConta()
         {
-            var conta = 3621;
-            var agencia = 8792;
+            var conta = 8792;
+            var agencia = 3621;
 
             // arrange
             var contaCorrente = GetContaCorrente();
@@ -350,7 +362,7 @@ namespace BanxoX.UnitTest
 
             // act
             string msgErro;
-            var result = contaCorrente.Saldo(666, 8792, out msgErro);
+            var result = contaCorrente.Saldo(0, 8792, out msgErro);
 
             //assert
             Assert.AreEqual(0m, result);
@@ -369,7 +381,7 @@ namespace BanxoX.UnitTest
 
             //assert
             Assert.AreEqual(0m, result);
-            Assert.AreEqual("Conta de origem é invalida!", msgErro);
+            Assert.AreEqual("Conta inválida!", msgErro);
         }
 
         [TestMethod]
@@ -406,7 +418,7 @@ namespace BanxoX.UnitTest
 
             // act
             string msgErro;
-            var result = contaCorrente.Extrato(666, 8792, new DateTime(2020, 02, 01), new DateTime(2020, 02, 16), out msgErro);
+            var result = contaCorrente.Extrato(0, 8792, new DateTime(2020, 02, 01), new DateTime(2020, 02, 16), out msgErro);
 
             //assert
             Assert.IsNull(result);
@@ -414,17 +426,29 @@ namespace BanxoX.UnitTest
         }
 
         [TestMethod]
-        public void ContaCorrente_Extrato_RetornaRegistroExtrato()
+        public void ContaCorrente_Extrato_RetornaRegistroDoExtrato()
         {
             // arrange
-            
+            var contaCorrente = GetContaCorrente();
+            var dataInicio = new DateTime(2020, 01, 01);
+            var dataFim = new DateTime(2020, 01, 15);
 
+            var extratoLista = Builder<Extrato>.CreateListOfSize(10)
+                .All()
+                .With(x => x.AgenciaId = 8792)
+                .With(x => x.ContaId = 3621)
+                .Build();
+
+            Mock.Get(contaCorrente.ExtratoRepository).Setup(c => c.GetByPeriodo(8792, 3621, dataInicio, dataFim)).Returns(extratoLista);
 
             // act
-          
+            string mesgErro;
+            var result = contaCorrente.Extrato(666, 8792, dataInicio, dataFim, out mesgErro);
 
             // assert
-
+            Assert.IsNotNull(result);
+            Assert.AreEqual(11, result.Count);
+            Assert.AreEqual(extratoLista.Sum(e=> e.Valor), result.Sum(r=> r.Valor));
         }
 
         [TestMethod]
@@ -435,7 +459,7 @@ namespace BanxoX.UnitTest
 
             // act
             string msgErro;
-            var result = contaCorrente.Extrato(8792, 55, new DateTime(2020, 01, 01), new DateTime(2020, 01, 15), out msgErro); // conta não existe
+            var result = contaCorrente.Extrato(8792, 0, new DateTime(2020, 01, 01), new DateTime(2020, 01, 15), out msgErro); // conta não existe
 
             //assert
             Assert.IsNull(result);

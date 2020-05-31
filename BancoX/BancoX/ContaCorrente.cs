@@ -137,22 +137,159 @@ namespace BancoX
                 return false;
             }
             return true;
-
         }
 
         public decimal Saldo(int agencia, int conta, out string mensagemErro)
         {
-            throw new NotImplementedException();
+            mensagemErro = "";
+
+            var ag = AgenciaRepository.GetById(agencia);
+
+            if(agencia == 0)
+            {
+                mensagemErro = "Agência inválida!";
+                return 0;
+            }
+
+            var contaCorrente = ContaRepository.GetById(agencia, conta);
+
+            if(contaCorrente == null)
+            {
+                mensagemErro = "Conta inválida!";
+                return 0;
+            }
+
+            return contaCorrente.Saldo;
         }
 
-        public bool Transferencia(int agenciaOrigem, int contaOrigem, decimal valor, int agenciaDestino, int contaDestino, out string MensagemErro)
+        public bool Transferencia(int agenciaOrigem, int contaOrigem, decimal valor, int agenciaDestino, int contaDestino, out string mensagemErro)
         {
-            throw new NotImplementedException();
+            mensagemErro = "";
+
+            var agOrigem = AgenciaRepository.GetById(agenciaOrigem);
+
+            if (agOrigem == null)
+            {
+                mensagemErro = "Agência de origem inválida!";
+                return false;
+            }
+
+            var contaCorrenteOrigem = ContaRepository.GetById(agenciaOrigem, contaOrigem);
+
+            if (contaCorrenteOrigem == null)
+            {
+                mensagemErro = "Conta de origem inválida!";
+                return false;
+            }
+
+            if(valor <= 0)
+            {
+                mensagemErro = "O valo deve ser maior do que zero!";
+                return false;
+            }
+
+            if(valor > contaCorrenteOrigem.Saldo)
+            {
+                mensagemErro = "O valor do saque precisa ser menor ou igual ao saldo da conta!";
+                return false;
+            }
+
+            var agDestino = AgenciaRepository.GetById(agenciaDestino);
+
+            if (agDestino == null)
+            {
+                mensagemErro = "Agência de destino inválida!";
+                return false;
+            }
+
+            var contaCorrenteDestino = ContaRepository.GetById(agenciaDestino, contaDestino);
+
+            if (contaCorrenteDestino == null)
+            {
+                mensagemErro = "Conta de destino inválida!";
+                return false;
+            }
+
+            contaCorrenteOrigem.Saldo = contaCorrenteOrigem.Saldo - valor;
+
+            var extratoOrigem = new Extrato()
+            {
+                DataRegistro = DateTime.Now,
+                AgenciaId = agenciaOrigem,
+                ContaId = contaCorrenteOrigem.Id,
+                Valor = valor * -1,
+                Saldo = contaCorrenteDestino.Saldo,
+                Descricao = $"Transferência para Ag {agenciaDestino} Cc {contaCorrenteDestino} ",
+            };
+
+            contaCorrenteDestino.Saldo = contaCorrenteDestino.Saldo + valor;
+
+            var extratoDestino = new Extrato()
+            {
+                DataRegistro = DateTime.Now,
+                AgenciaId = agenciaDestino,
+                ContaId = contaCorrenteDestino.Id,
+                Valor = valor,
+                Saldo = contaCorrenteDestino.Saldo,
+                Descricao = $"Transferência de Ag {agenciaOrigem} Cc {contaCorrenteOrigem} ",
+            };
+
+            try
+            {
+                using (var transaction = new TransactionScope())
+                {
+                    ContaRepository.Save(contaCorrenteOrigem);
+                    ExtratoRepository.Save(extratoOrigem);
+                    ExtratoRepository.Save(extratoDestino);
+                    transaction.Complete();
+                }
+            }
+            catch (Exception ex)
+            {
+                mensagemErro = "Ocorreu um problema ao fazer a tranferência!";
+                return false;
+            }
+
+            return true;
         }
 
-        public List<Extrato> Extrato(int agencia, int conta, DateTime dataInicio, DateTime dataFim, out string mensagemErro)
+        public IList<Extrato> Extrato(int idAgencia, int conta, DateTime dataInicio, DateTime dataFim, out string mensagemErro)
         {
-            throw new NotImplementedException();
+            mensagemErro = "";
+
+            var agencia = AgenciaRepository.GetById(idAgencia);
+
+            if (agencia == null)
+            {
+                mensagemErro = "Agência inválida!";
+                return null;
+            }
+
+            var contaCorrente = ContaRepository.GetById(idAgencia, conta);
+
+            if(dataInicio > dataFim)
+            {
+                mensagemErro = "A data de inicio deve ser menor do que a data fim!";
+                return null;
+            }
+
+            if ((dataFim - dataInicio).Days > 120)
+            {
+                mensagemErro = "O período não deve ser superior a 120 dias!";
+                return null;
+            }
+
+            try
+            {
+                var extratoLista = ExtratoRepository.GetByPeriodo(agencia.Id, conta, dataInicio, dataFim);
+                return extratoLista;
+            }
+            catch (Exception)
+            {
+                // incluir isso em um log...
+                mensagemErro = "Ocorreu um erro ao fazer obter o extrato!";
+                return null;
+            }
         }
     }
 }
