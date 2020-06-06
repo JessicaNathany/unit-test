@@ -45,23 +45,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Agencia.cs" />
-    <Compile Include="Carteira.cs" />
-    <Compile Include="Conta.cs" />
+    <Compile Include="Model\CDB.cs" />
+    <Compile Include="Model\Investimentos.cs" />
+    <Compile Include="Model\Agencia.cs" />
+    <Compile Include="Model\ContaInvestimento.cs" />
+    <Compile Include="Model\Cliente.cs" />
+    <Compile Include="Model\Conta.cs" />
     <Compile Include="ContaCorrente.cs" />
     <Compile Include="ExtratoInvetimento.cs" />
-    <Compile Include="Interface\IAgenciaRepository.cs" />
-    <Compile Include="Extrato.cs" />
-    <Compile Include="Interface\ICarteira.cs" />
-    <Compile Include="Interface\ICarteiraRepository.cs" />
+    <Compile Include="Interface\Repository\IAgenciaRepository.cs" />
+    <Compile Include="Model\ContaInvest.cs" />
+    <Compile Include="Model\Extrato.cs" />
+    <Compile Include="Interface\IContaInvestimento.cs" />
+    <Compile Include="Interface\Repository\IContaInvestimentoRepository.cs" />
     <Compile Include="Interface\IContaCorrente.cs" />
-    <Compile Include="Interface\IContaRepository.cs" />
-    <Compile Include="Interface\IExtratoInvetimentoRepository.cs" />
-    <Compile Include="Interface\IExtratoRepository.cs" />
-    <Compile Include="Interface\IInvestimentos.cs" />
-    <Compile Include="Interface\ITesouroDireto.cs" />
+    <Compile Include="Interface\Repository\IContaRepository.cs" />
+    <Compile Include="Interface\Repository\IExtratoInvetimentoRepository.cs" />
+    <Compile Include="Interface\Repository\IExtratoRepository.cs" />
+    <Compile Include="Model\TipoInvestimento.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TesouroDireto.cs" />
+    <Compile Include="Model\TesouroDireto.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

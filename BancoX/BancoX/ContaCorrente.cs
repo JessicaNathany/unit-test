@@ -267,6 +267,12 @@ namespace BancoX
 
             var contaCorrente = ContaRepository.GetById(idAgencia, conta);
 
+            if(contaCorrente == null)
+            {
+                mensagemErro = "Conta de origem é invalida!";
+                return null;
+            }
+
             if(dataInicio > dataFim)
             {
                 mensagemErro = "A data de inicio deve ser menor do que a data fim!";
