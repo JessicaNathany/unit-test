@@ -28,8 +28,6 @@ namespace BancoX
                 mensagemErro = "Agência inválida!";
                 return false;
             }
-
-
             return true;
         }
 
@@ -48,18 +46,25 @@ namespace BancoX
             throw new NotImplementedException();
         }
 
-        public void Resgate(int idTitulo, decimal valor, DateTime dataAtual, out string mensagemErro)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Retirada(double valorRetirada, int idAgencia, int contaCorrente, string nomeBanco, string mensagemErro)
+        public void ResgateTitulo(double valorRetirada, int idAgencia, int contaCorrente, string nomeBanco, DateTime dataTitulo, DateTime dataVencimento, string mensagemErro)
         {
             // retirada da conta investimentos para uma outra conta particular
 
+            // resgate do título => transferência para uma conta corrente
+
             throw new NotImplementedException();
         }
 
-        // criar método DescontoImpostoRenda retorna um double
+        public double DescontoImpostoRenda(double valorTitulo, DateTime dataAplicacao, DateTime dataVencimento, out string mensagemErro)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Transferencia(int agenciaOrigem, int contaOrigem, decimal valor, int agenciaDestino, int contaDestino, out string mensagemErro)
+        {
+            throw new NotImplementedException();
+
+            // transferência do valor da carteira para a conta corrente
+        }
     }
 }

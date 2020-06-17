@@ -1,57 +1,61 @@
 Criar um serviço  para o banco BanZone que permite realizar as seguintes operações:
 
-ContaCorrente *
+#ContaCorrente 
 
-Depósito em CC
-	Requisitos:
-		- A agência deve existir
-		- A conta deve existir na agência
-		- O valor do depósito deve ser maior do que zero
+	Depósito em CC
+		Requisitos:
+			- A agência deve existir
+			- A conta deve existir na agência
+			- O valor do depósito deve ser maior do que zero
+			
+	Saque de CC
+		Requisitos:
+			 - A agência deve existir
+			 - A conta deve ser maior do que zero
+			 - O valor deve ser menor ou igual ao saldo da conta
+			 
+	Transferência entre contas
+		Requisitos:
+			- A agência deve existir (ambas)
+			- A conta deve existir na agência (ambas)
+			- O valor deve ser menor ou igual ao saldo da conta
+
+	Transferência entre contas		
+		Requisitos:
+			- A agência deve existir (ambas)
+			- A conta deve ser maior do que zero
+			- O valor deve ser menor ou igual ao saldo da conta de origem
+			
+	Saldo
+		Requisitos:
+			- A agência deve existir (para contas) 
+			- A conta deve existir na agência
+
+	Extrato
+		Requisitos:
+			- A agência deve existir
+			- A conta de inicio deve ser menor que a data de fim
+			- A diferença entre a data inicio e fim deve ultrapassar 120 dias
+			- P primeiro registro sempre vem com o "saldo anterior" ao período informado
 		
-Saque de CC
-	Requisitos:
-		 - A agência deve existir
-		 - A conta deve ser maior do que zero
-		 - O valor deve ser menor ou igual ao saldo da conta
-		 
-Transferência entre contas
-	Requisitos:
-		- A agência deve existir (ambas)
-		- A conta deve existir na agência (ambas)
-		- O valor deve ser menor ou igual ao saldo da conta
-
-Transferência entre contas		
-	Requisitos:
-		- A agência deve existir (ambas)
-		- A conta deve ser maior do que zero
-		- O valor deve ser menor ou igual ao saldo da conta de origem
-		
-Saldo
-	Requisitos:
-		- A agência deve existir (para contas) 
-		- A conta deve existir na agência
-
-Extrato
-	Requisitos:
-		- A agência deve existir
-		- A conta de inicio deve ser menor que a data de fim
-		- A diferença entre a data inicio e fim deve ultrapassar 120 dias
-		- P primeiro registro sempre vem com o "saldo anterior" ao período informado
-	
 --------------------------------------------------------------------------------------------------
 
-TesouroDireto *
+#TesouroDireto 
 
-Investimento irá conter alguns serviços e regras tais como:	
-		
-Inestimento Tesouro Direto
-	Requisitos:
-		- Para comprar um título do tesouro direto é preciso ter acima de  30,00 -- ok
-		- Para Resgatar o valor do titulo, tem que ser maior ou igual o período de 6 meses após data da aplicação
-		- Para comprar um título a carteira da corretora deve existir -- ok
-		- Para comprar um título do tesouro direto, o título deverá existir -- ok
-		- Ao resgatar o título antes do prazo vigente, é descontado o IR conforme a regra -- ok
-		- Para depositar um valor na carteira, o valor tem que ser maior que 50,00
+	Investimento irá conter alguns serviços e regras tais como:	
+			
+	Inestimento Tesouro Direto
+		Requisitos:
+			- Para comprar um título do tesouro direto, é preciso ter o valor igual ou maior que 30 na carteira -- ok
+			- Para Resgatar o valor do titulo, tem que ser maior ou igual o período de 6 meses após data da aplicação
+			- Para comprar um título a carteira da corretora deve existir -- ok
+			- Para comprar um título do tesouro direto, o título deverá existir -- ok
+			- Ao resgatar o título antes do prazo vigente, é descontado o IR conforme a regra -- ok
+			- Para depositar um valor na carteira, o valor tem que ser maior que 50,00
+			- O desconto do IR para os títulos do tesouro direto, é calculado da seguinte maneira: 
+				Até 6 meses = 22,5% 
+				Até 1 ano = 20%
+				Acima de 2 anos = 15%
 		
 	
 
