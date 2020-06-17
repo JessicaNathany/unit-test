@@ -27,19 +27,19 @@ namespace BanxoX.UnitTest
         }
 
         [Fact]
-        public void ContaInvestimento_AgenciaNaoExiste()
+        public void ContaInvestimento_Deposito_AgenciaNaoExiste()
         {
             var numero = 2000;
             var banco = "EasyInvest";
             var valor = 1000M;
 
             // Arrange
-            var conta = GetContaInvestimento();
+            var contaInvestimento = GetContaInvestimento();
 
             // Act
             string msgErro;
          
-            var result = conta.Deposito(0, numero, banco, valor, out msgErro);
+            var result = contaInvestimento.Deposito(0, numero, banco, valor, out msgErro);
 
             // Assert
             Assert.False(result);
@@ -47,32 +47,41 @@ namespace BanxoX.UnitTest
         }
 
         [Fact]
-        public void ContaInvestimento_ContaInvestidorNaoExiste()
+        public void ContaInvestimento_Deposito_ContaInvestidorNaoExiste()
         {
-            // arrange
+            var numero = 0;
+            var banco = "EasyInvest";
+            var valor = 1000M;
+            var idAgencia = 8792;
 
+            // arrange
+            var contaInvestimento = GetContaInvestimento();
 
             // act
+            string msgErro;
+            var result = contaInvestimento.Deposito(idAgencia, numero, banco, valor, out msgErro);
 
             // assert
+            Assert.False(result);
+            Assert.Equal("Conta inválida!", msgErro);
         }
 
         [Fact]
-        public void ContaInvestimento_ContaInvestidorSaldoInferior()
+        public void ContaInvestimento_Deposito_ValorInferior50()
         {
             throw new NotImplementedException();
 
-            // Conta do investidor sem saldo
+            // valor do depósito na carteira tem que ser maior ou igual a 50.00
         }
 
         [Fact]
-        public void ContaInvestimento_ValorMaiorQueValorMinimoDoTitulo()
+        public void ContaInvestimento_Resgate_ValorMaiorQueValorMinimoDoTitulo_Erro()
         {
             throw new NotImplementedException();
         }
 
         [Fact]
-        public void ContaInvestimento_ResgateNaoDeveSerMaiorQueSeisMesesDoValorDoTitulo_Erro()
+        public void ContaInvestimento_Resgate_ValorNaoDeveSerMaiorQueSeisMesesDoValorDoTitulo_Erro()
         {
 
             throw new NotImplementedException();
@@ -90,7 +99,7 @@ namespace BanxoX.UnitTest
         }
 
         [Fact]
-        public void ContaInvestimento_CobrancaImpostoRendaAteUmAno()
+        public void ContaInvestimento_DescontoImpostoRenda_ImpostoRendaAteUmAno()
         {
             throw new NotImplementedException();
 
@@ -100,7 +109,7 @@ namespace BanxoX.UnitTest
         }
 
         [Fact]
-        public void ContaInvestimento_CobrancaImpostoRendaAteDoisAno()
+        public void ContaInvestimento_DescontoImpostoRenda_CobrancaImpostoRendaAteDoisAno()
         {
             throw new NotImplementedException();
 

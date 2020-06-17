@@ -59,5 +59,7 @@ namespace BancoX
 
             throw new NotImplementedException();
         }
+
+        // criar método DescontoImpostoRenda retorna um double
     }
 }

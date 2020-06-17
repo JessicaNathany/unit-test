@@ -51,6 +51,7 @@ Inestimento Tesouro Direto
 		- Para comprar um título a carteira da corretora deve existir -- ok
 		- Para comprar um título do tesouro direto, o título deverá existir -- ok
 		- Ao resgatar o título antes do prazo vigente, é descontado o IR conforme a regra -- ok
+		- Para depositar um valor na carteira, o valor tem que ser maior que 50,00
 		
 	
 
