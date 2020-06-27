@@ -16,3 +16,4 @@ A classe ContaCorrenteTest, foi criada utilizando o Microsoft.VisualStudio.TestT
 - Install-Package xunit.runner.visualstudio -Version 2.4.1
 - Install-Package Bogus
 - Install-package MOQ.automock
+- Install-package FluentAssertions
