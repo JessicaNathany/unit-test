@@ -19,16 +19,18 @@ namespace BancoX
 
         public bool Deposito(int idAgencia, int numero, string banco, decimal valor, out string mensagemErro)
         {
-            mensagemErro = "";
+            //mensagemErro = "";
 
-            var agencia = _AgenciaRepository.GetById(idAgencia);
+            //var agencia = _AgenciaRepository.GetById(idAgencia);
 
-            if(agencia == null)
-            {
-                mensagemErro = "Agência inválida!";
-                return false;
-            }
-            return true;
+            //if(agencia == null)
+            //{
+            //    mensagemErro = "Agência inválida!";
+            //    return false;
+            //}
+            //return true;
+
+            throw new NotImplementedException();
         }
 
         public List<ExtratoInvetimento> Extrato(int idTitulo, int idCarteira, out string mensagemErro)
@@ -36,7 +38,7 @@ namespace BancoX
             throw new NotImplementedException();
         }
 
-        public void Investit(int idTitulo, decimal valor, out string mensagemErro)
+        public bool Investir(int idTitulo, decimal valor, out string mensagemErro)
         {
             throw new NotImplementedException();
         }
@@ -46,7 +48,7 @@ namespace BancoX
             throw new NotImplementedException();
         }
 
-        public void ResgateTitulo(double valorRetirada, int idAgencia, int contaCorrente, string nomeBanco, DateTime dataTitulo, DateTime dataVencimento, string mensagemErro)
+        public bool ResgateTitulo(double valorRetirada, int idAgencia, int contaCorrente, string nomeBanco, DateTime dataAtualResgate, DateTime dataVencimento, out string mensagemErro)
         {
             // retirada da conta investimentos para uma outra conta particular
 

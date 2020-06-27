@@ -85,44 +85,106 @@ namespace BanxoX.UnitTest
         }
 
         [Fact]
-        public void ContaInvestimento_Transferencia_ErroSeAgenciaOrigemNaoExistir()
+        public void ContaInvestimento_Transferencia_ErroAgenciaOrigemNaoExiste()
         {
-            throw new NotImplementedException();
+            var contaInvestOrigem = 2;
+            var valor = 500;
+            var agenciaDestino = 8792;
+
+            // Arrange
+            var contaInvestimento = GetContaInvestimento();
+
+            // Act
+            string msgErro;
+            var result = contaInvestimento.Transferencia(0, contaInvestOrigem, valor, agenciaDestino, 0, out msgErro);
+
+            // Assert
+            Assert.False(result);
+            Assert.Equal("Agência origem inválida!", msgErro);
         }
 
         [Fact]
-        public void ContaInvestimento_Transferencia_ErroSeContaOrigemNaoExistirNaAgencia()
+        public void ContaInvestimento_Transferencia_ErroContaOrigemNaoExisteNaAgencia()
         {
-            throw new NotImplementedException();
+            var agenciaInvestOrigem = 0002;
+            var contaInvestOrigem = 2;
+            var valor = 500;
+            var agenciaDestino = 8792;
+
+            // Arrange
+            var contaInvestimento = GetContaInvestimento();
+
+            // Act
+            string msgErro;
+            var result = contaInvestimento.Transferencia(agenciaInvestOrigem, contaInvestOrigem, valor, agenciaDestino, 0, out msgErro);
+
+            // Assert
+            Assert.False(result);
+            Assert.Equal("Conta origem inválida!", msgErro);
         }
 
         [Fact]
         public void ContaInvestimento_Transferencia_ErroSeAgenciaDestinoNaoExiste()
         {
-            throw new NotImplementedException();
+            var agenciaInvestOrigem = 0002;
+            var contaInvestOrigem = 2;
+            var contaDestino = 3621;
+            var valor = 500;
+         
+
+            // Arrange
+            var contaInvestimento = GetContaInvestimento();
+
+            // Act
+            string msgErro;
+            var result = contaInvestimento.Transferencia(agenciaInvestOrigem, contaInvestOrigem, valor, 0, contaDestino, out msgErro);
+
+            // Assert
+            Assert.False(result);
+            Assert.Equal("Agência destino inválida!", msgErro);
         }
 
         [Fact]
         public void ContaInvestimento_Transferencia_ErroSeContaDestinoNaoExiste()
         {
-            throw new NotImplementedException();
+            var agenciaInvestOrigem = 0002;
+            var contaInvestOrigem = 2;
+            var agenciaDestino = 8792;
+            var valor = 500;
+
+
+            // Arrange
+            var contaInvestimento = GetContaInvestimento();
+
+            // Act
+            string msgErro;
+            var result = contaInvestimento.Transferencia(agenciaInvestOrigem, contaInvestOrigem, valor, agenciaDestino, 0, out msgErro);
+
+            // Assert
+            Assert.False(result);
+            Assert.Equal("Conta destino inválida!", msgErro);
         }
 
         [Fact]
-        public void ContaInvestimento_ResgateTitulo_ValorMaiorOuIgualPeriodoDeResgateDoTitulo_Erro()
+        public void ContaInvestimento_Resgate_DataDeveraSerMaiorOuIgualQueDataMininaDoResgate_Erro()
         {
-            throw new NotImplementedException();
+            double valorResgate = 5000;
+            int idAgencia = 0001;
+            int conta = 1;
+            string nomeBanco = "Easyinvest";
+            DateTime dataRetirada = DateTime.Now;
+            DateTime dataVenci = DateTime.Now.AddDays(60);
 
-            // Para Resgatar o valor do titulo, tem que ser maior ou igual o período de 6 meses após data da aplicação
+            // Arrange
+            var contaInvestimento = GetContaInvestimento();
+            
+            // Act
+            string msgErro;
+            var result = contaInvestimento.ResgateTitulo(valorResgate, idAgencia, conta, nomeBanco, dataRetirada, dataVenci, out msgErro);
 
-        }
-
-        [Fact]
-        public void ContaInvestimento_Resgate_ValorNaoDeveSerMaiorQueSeisMesesDoValorDoTitulo_Erro()
-        {
-
-            throw new NotImplementedException();
-            //quando tentar sacar menos de seis meses da data da aplicação
+            // Assert
+            Assert.False(result);
+            Assert.Equal("A data de resgate deve ser maior ou igual a data de vencimento do título!", msgErro);
         }
 
         [Fact]

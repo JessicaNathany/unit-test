@@ -46,12 +46,12 @@ Criar um serviço  para o banco BanZone que permite realizar as seguintes opera�
 			
 	Inestimento Tesouro Direto
 		Requisitos:
-			- Para comprar um título do tesouro direto, é preciso ter o valor igual ou maior que 30 na carteira -- ok
-			- Para Resgatar o valor do titulo, tem que ser maior ou igual o período de 6 meses após data da aplicação
+			- Para comprar um título do tesouro direto, é preciso ter o valor igual ou maior que 50 na carteira -- ok
+			- Para Resgatar o valor do titulo, a data deverá ser maior ou igual a data mínima de resgate do título -- ok
 			- Para comprar um título a carteira da corretora deve existir -- ok
 			- Para comprar um título do tesouro direto, o título deverá existir -- ok
 			- Ao resgatar o título antes do prazo vigente, é descontado o IR conforme a regra -- ok
-			- Para depositar um valor na carteira, o valor tem que ser maior que 50,00
+			- Para depositar um valor da carteira, o valor tem que ser maior que 50,00
 			- O desconto do IR para os títulos do tesouro direto, é calculado da seguinte maneira: 
 				Até 6 meses = 22,5% 
 				Até 1 ano = 20%
