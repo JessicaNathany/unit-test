@@ -51,9 +51,9 @@ Criar um serviço  para o banco BanZone que permite realizar as seguintes opera�
 			- Para comprar um título a carteira da corretora deve existir -- ok
 			- Para comprar um título do tesouro direto, o título deverá existir -- ok
 			- Ao resgatar o título antes do prazo vigente, é descontado o IR conforme a regra -- ok
-			- Para depositar um valor da carteira, o valor tem que ser maior que 50,00
-			- O desconto do IR para os títulos do tesouro direto, é calculado da seguinte maneira: 
-				Até 6 meses = 22,5% 
+			- Para depositar um valor da carteira, o valor tem que ser maior que 50,00 -- ok
+			- O desconto do IR para os títulos do tesouro direto, é calculado da seguinte maneira:  -- ok
+				Até 6 meses = 22,5% -- ok
 				Até 1 ano = 20%
 				Acima de 2 anos = 15%
 		

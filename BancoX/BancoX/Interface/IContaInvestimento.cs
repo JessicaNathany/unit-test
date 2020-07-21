@@ -14,7 +14,7 @@ namespace BancoX.Interface
 
         IList<Investimentos> ListarMeusInvestimentos();
 
-        double DescontoImpostoRenda(double valorTitulo, DateTime dataAplicacao, DateTime dataVencimento, out string mensagemErro);
+        double CalculaDescontoImpostoRenda(double valorTitulo, DateTime dataAplicacao, DateTime dataVencimento, out string mensagemErro);
 
         bool Transferencia(int agenciaOrigem, int contaOrigem, decimal valor, int agenciaDestino, int contaDestino, out string mensagemErro);
     }

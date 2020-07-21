@@ -57,7 +57,7 @@ namespace BancoX
             throw new NotImplementedException();
         }
 
-        public double DescontoImpostoRenda(double valorTitulo, DateTime dataAplicacao, DateTime dataVencimento, out string mensagemErro)
+        public double CalculaDescontoImpostoRenda(double valorTitulo, DateTime dataAplicacao, DateTime dataVencimento, out string mensagemErro)
         {
             throw new NotImplementedException();
         }

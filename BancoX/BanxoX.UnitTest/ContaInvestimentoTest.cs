@@ -69,6 +69,7 @@ namespace BanxoX.UnitTest
             Assert.Equal("Conta inválida!", msgErro);
         }
 
+        
         [Fact]
         public void ContaInvestimento_Deposito_ValorMaiorOuIgualCinquenta_Erro()
         {
@@ -188,17 +189,28 @@ namespace BanxoX.UnitTest
         }
 
         [Fact]
-        public void ContaInvestimento_DescontoImpostoRenda_AteSeisMeses()
+        public void ContaInvestimento_CalculoImpostoRenda_AteSeisMeses()
         {
-            throw new NotImplementedException();
+            var calcIR = 22 * 5 / 100;
 
-            // regra do desconto do imposto de renda ao resgatar em até seis meses da data da aplicação
+            double valorTitulo = 500.00;
+            DateTime dataAplicacao = DateTime.Now.AddMonths(-6);
+            DateTime dataVencimento = dataAplicacao.AddYears(4);
 
-            // desconto IR 22,5%
+            // Arrange
+            var contaInvestimento = GetContaInvestimento();
+
+            // Act
+            string msgErro;
+            var result = contaInvestimento.CalculaDescontoImpostoRenda(valorTitulo, dataAplicacao, dataVencimento, out msgErro);
+
+            // Assert
+            Assert.Equal(result, calcIR);
+            Assert.Equal("Será cobrado 22,5% de imposto de renda do seu lucro!", msgErro);
         }
 
         [Fact]
-        public void ContaInvestimento_DescontoImpostoRenda_AteUmAno()
+        public void ContaInvestimento_CalculoImpostoRenda_AteUmAno()
         {
             throw new NotImplementedException();
 
@@ -208,7 +220,7 @@ namespace BanxoX.UnitTest
         }
 
         [Fact]
-        public void ContaInvestimento_DescontoImpostoRenda_AcimaDoisAno()
+        public void ContaInvestimento_CalculoImpostoRenda_AcimaDoisAno()
         {
             throw new NotImplementedException();
 
@@ -221,6 +233,7 @@ namespace BanxoX.UnitTest
         public void ContaInvestimento_CobrancaImpostoRendaAcimaDoisAno()
         {
             throw new NotImplementedException();
+
 
             // regra do desconto do imposto de renda ao resgatar em até dois anos da data da aplicação
 
