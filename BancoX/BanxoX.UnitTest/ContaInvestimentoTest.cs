@@ -191,7 +191,7 @@ namespace BanxoX.UnitTest
         [Fact]
         public void ContaInvestimento_CalculoImpostoRenda_AteSeisMeses()
         {
-            var calcIR = 22 * 5 / 100;
+            var calcIR = 22 * 5 / 100; // cálculo está errado, refazer
 
             double valorTitulo = 500.00;
             DateTime dataAplicacao = DateTime.Now.AddMonths(-6);
@@ -212,9 +212,22 @@ namespace BanxoX.UnitTest
         [Fact]
         public void ContaInvestimento_CalculoImpostoRenda_AteUmAno()
         {
-            throw new NotImplementedException();
+            double valorTitulo = 500.00;
+            DateTime dataAplicacao = DateTime.Now.AddMonths(-6);
+            DateTime dataVencimento = dataAplicacao.AddYears(4);
 
-            // regra do desconto do imposto de renda ao resgatar em até um ano da data da aplicação
+            var calcIR = 20 * 5 / 100; // cálculo está errado, refazer verificar o cálculo de IR no tesouro
+
+            // Arrange
+            var contaInvestimento = GetContaInvestimento();
+
+            // Act
+            string msgErro;
+            var result = contaInvestimento.CalculaDescontoImpostoRenda(valorTitulo, dataAplicacao, dataVencimento, out msgErro);
+
+            // Assert
+            Assert.Equal(result, calcIR);
+            Assert.Equal("Será cobrado 20% de imposto de renda do seu lucro!", msgErro);
 
             // desconto IR 20%
         }
