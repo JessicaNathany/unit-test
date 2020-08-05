@@ -191,11 +191,11 @@ namespace BanxoX.UnitTest
         [Fact]
         public void ContaInvestimento_CalculoImpostoRenda_AteSeisMeses()
         {
-            var calcIR = 22 * 5 / 100; // cálculo está errado, refazer
-
             double valorTitulo = 500.00;
             DateTime dataAplicacao = DateTime.Now.AddMonths(-6);
             DateTime dataVencimento = dataAplicacao.AddYears(4);
+
+            var calcIR = (22.5 / 100) * valorTitulo; 
 
             // Arrange
             var contaInvestimento = GetContaInvestimento();
@@ -216,7 +216,7 @@ namespace BanxoX.UnitTest
             DateTime dataAplicacao = DateTime.Now.AddMonths(-6);
             DateTime dataVencimento = dataAplicacao.AddYears(4);
 
-            var calcIR = 20 * 5 / 100; // cálculo está errado, refazer verificar o cálculo de IR no tesouro
+            var calcIR = (20/100) * valorTitulo; 
 
             // Arrange
             var contaInvestimento = GetContaInvestimento();
@@ -235,18 +235,11 @@ namespace BanxoX.UnitTest
         [Fact]
         public void ContaInvestimento_CalculoImpostoRenda_AcimaDoisAno()
         {
+            double valorTitulo = 680.00;
+
+            var calcIR = (1 / 100) * valorTitulo;
+
             throw new NotImplementedException();
-
-            // regra do desconto do imposto de renda ao resgatar em até dois anos da data da aplicação
-
-            // desconto IR 17, 5%
-        }
-
-        [Fact]
-        public void ContaInvestimento_CobrancaImpostoRendaAcimaDoisAno()
-        {
-            throw new NotImplementedException();
-
 
             // regra do desconto do imposto de renda ao resgatar em até dois anos da data da aplicação
 
