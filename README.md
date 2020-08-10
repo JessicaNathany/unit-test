@@ -18,4 +18,3 @@ A classe ContaCorrenteTest, foi criada utilizando o Microsoft.VisualStudio.TestT
 - Install-package MOQ.automock
 - Install-package FluentAssertions
 - Install-Package Moq.AutoMock -Version 2.0.1
-https://img.shields.io/static/v1?label=<LABEL>&message=<MESSAGE>&color=<COLOR>&style=<STYLE>&logo=<LOGO>
