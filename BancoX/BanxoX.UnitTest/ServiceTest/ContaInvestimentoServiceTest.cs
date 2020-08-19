@@ -80,7 +80,6 @@ namespace BanxoX.UnitTest
             Assert.False(result);
             Assert.Equal("Conta inválida!", msgErro);
         }
-
         
         [Fact(DisplayName = "Calcula Valor maior ou igual cinquenta")]
         [Trait("Categoria", "Conta Investimento")]
