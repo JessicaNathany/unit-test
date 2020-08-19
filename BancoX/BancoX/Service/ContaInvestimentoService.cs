@@ -71,6 +71,8 @@ namespace BancoX
         public double CalculaDescontoImpostoRenda(double valorTitulo, DateTime dataAplicacao, DateTime dataVencimento, out string mensagemErro)
         {
             throw new NotImplementedException();
+
+            // refactor esse método deverá estar no service TesouroDiretoService e o teste também
         }
 
         public bool Transferencia(int agenciaOrigem, int contaOrigem, decimal valor, int agenciaDestino, int contaDestino, out string mensagemErro)
