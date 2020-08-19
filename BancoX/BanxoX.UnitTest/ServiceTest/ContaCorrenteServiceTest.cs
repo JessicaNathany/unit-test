@@ -10,11 +10,11 @@ using System.Linq;
 namespace BanxoX.UnitTest
 {
     [TestClass]
-    public class ContaCorrenteTest
+    public class ContaCorrenteServiceTest
     {
-        private ContaCorrente GetContaCorrente()
+        private ContaCorrenteService GetContaCorrente()
         {
-            var contaCorrente = new ContaCorrente(
+            var contaCorrente = new ContaCorrenteService(
                 Mock.Of<IAgenciaRepository>(),
                 Mock.Of<IContaRepository>(),
                 Mock.Of<IExtratoRepository>()

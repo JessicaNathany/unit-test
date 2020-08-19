@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 namespace BancoX.Interface
 {
-    public interface IContaInvestimento
+    public interface IContaInvestimentoService
     {
         bool Investir(int idTitulo, decimal valor, out string mensagemErro);
 

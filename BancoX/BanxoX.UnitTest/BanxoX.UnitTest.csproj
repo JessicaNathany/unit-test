@@ -93,8 +93,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ContaCorrenteTest.cs" />
-    <Compile Include="ContaInvestimentoTest.cs" />
+    <Compile Include="ServiceTest\ContaCorrenteServiceTest.cs" />
+    <Compile Include="ServiceTest\ContaInvestimentoServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

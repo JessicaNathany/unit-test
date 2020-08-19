@@ -1,4 +1,6 @@
-﻿namespace BancoX.Interface
+﻿using BancoX.Model;
+
+namespace BancoX.Interface
 {
     public interface IContaInvestimentoRepository
     {

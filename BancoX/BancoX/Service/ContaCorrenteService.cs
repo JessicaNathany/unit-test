@@ -5,21 +5,18 @@ using System.Transactions;
 
 namespace BancoX
 {
-   
-    public class ContaCorrente : IContaCorrente
+    public class ContaCorrenteService : IContaCorrente
     {
-        public ContaCorrente(IAgenciaRepository agenciaRepository, IContaRepository contaRepository, IExtratoRepository extratoRepository)
+        public IAgenciaRepository AgenciaRepository { get; set; }
+        public IContaRepository ContaRepository { get; set; }
+        public IExtratoRepository ExtratoRepository { get; set; }
+
+        public ContaCorrenteService(IAgenciaRepository agenciaRepository, IContaRepository contaRepository, IExtratoRepository extratoRepository)
         {
             AgenciaRepository = agenciaRepository;
             ContaRepository = contaRepository;
             ExtratoRepository = extratoRepository;
         }
-
-        public IAgenciaRepository AgenciaRepository { get; set; }
-
-        public IContaRepository ContaRepository { get; set; }
-
-        public IExtratoRepository ExtratoRepository { get; set; }
 
         public bool Deposito(int idAgencia, int conta, decimal valor, out string mensagemErro)
         {
