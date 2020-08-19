@@ -9,6 +9,5 @@ namespace BancoX.Model
         public double ValorLiquidoEstimado { get; set; }
         public DateTime DataVencimento { get; set; }
         public decimal IR { get; set; }
-        public TipoInvestimento TipoInvestimento { get; set; }
     }
 }

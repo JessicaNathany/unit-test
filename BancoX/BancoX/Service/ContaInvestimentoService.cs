@@ -54,11 +54,6 @@ namespace BancoX
             throw new NotImplementedException();
         }
 
-        public IList<Investimentos> ListarMeusInvestimentos()
-        {
-            throw new NotImplementedException();
-        }
-
         public bool ResgateTitulo(double valorRetirada, int idAgencia, int contaCorrente, string nomeBanco, DateTime dataAtualResgate, DateTime dataVencimento, out string mensagemErro)
         {
             // retirada da conta investimentos para uma outra conta particular

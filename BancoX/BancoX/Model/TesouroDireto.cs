@@ -15,7 +15,5 @@ namespace BancoX
         public decimal ValorMinimo { get; set; }
 
         public decimal IR { get; set; }
-
-        public TipoInvestimento TipoInvestimento { get; set; }
     }
 }
