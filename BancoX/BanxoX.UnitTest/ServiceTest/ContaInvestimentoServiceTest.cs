@@ -39,7 +39,7 @@ namespace BanxoX.UnitTest
             return contaInvestimento;
         }
 
-        [Fact(DisplayName = "Calcula Aência não existe")]
+        [Fact(DisplayName = "Agência não existe")]
         [Trait("Categoria", "Conta Investimento")]
         public void ContaInvestimento_Deposito_AgenciaNaoExiste_Erro()
         {
@@ -61,7 +61,7 @@ namespace BanxoX.UnitTest
         }
 
         
-        [Fact(DisplayName = "Calcula conta investimento não existe")]
+        [Fact(DisplayName = "Conta Investimento não existe")]
         [Trait("Categoria", "Conta Investimento")]
         public void ContaInvestimento_Deposito_ContaInvestidorNaoExiste_Erro()
         {
@@ -81,22 +81,23 @@ namespace BanxoX.UnitTest
             Assert.Equal("Conta inválida!", msgErro);
         }
         
-        [Fact(DisplayName = "Calcula Valor maior ou igual cinquenta")]
+        [Fact(DisplayName = "Valor do depósito maior ou igual 50")]
         [Trait("Categoria", "Conta Investimento")]
         public void ContaInvestimento_Deposito_ValorMaiorOuIgualCinquenta_Erro()
         {
+            var valorDeposito = 30M;
+
             // Arrange
             var contaInvestimento = GetContaInvestimento();
 
             // Act
             string msgErro;
-            var result = contaInvestimento.Deposito(0002, 1050, "XP", 30M, out msgErro);
+            var result = contaInvestimento.Deposito(2, 1050, "XP", valorDeposito, out msgErro);
 
             // Assert
             Assert.False(result);
             Assert.Equal("O valor do depósito precisa ser maior ou igual a 50!", msgErro);
         }
-
         
         [Fact(DisplayName = "Calcula agência de origem não existe")]
         [Trait("Categoria", "Conta Investimento")]
@@ -202,7 +203,7 @@ namespace BanxoX.UnitTest
             
             // Act
             string msgErro;
-            var result = contaInvestimento.ResgateTitulo(valorResgate, idAgencia, conta, nomeBanco, dataRetirada, dataVenci, out msgErro);
+            var result = contaInvestimento.ResgateInvestimento(valorResgate, idAgencia, conta, nomeBanco, dataRetirada, dataVenci, out msgErro);
 
             // Assert
             Assert.False(result);

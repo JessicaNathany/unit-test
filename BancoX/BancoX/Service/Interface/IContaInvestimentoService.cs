@@ -8,7 +8,7 @@ namespace BancoX.Interface
 
         List<ExtratoInvetimento>Extrato(int idTitulo, int idCarteira, out string mensagemErro);
 
-        bool ResgateTitulo(double valorRetirada, int idAgencia, int contaCorrente, string nomeBanco, DateTime dataAtualResgate, DateTime dataVencimento, out string mensagemErro);
+        bool ResgateInvestimento(double valorRetirada, int idAgencia, int contaCorrente, string nomeBanco, DateTime dataAtualResgate, DateTime dataVencimento, out string mensagemErro);
 
         bool Deposito(int idAgencia, int numero, string banco, decimal valor, out string mensagemErro);
 

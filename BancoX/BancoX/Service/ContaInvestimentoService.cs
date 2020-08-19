@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using BancoX.Interface;
+using FluentValidation.Results;
+
 namespace BancoX
 {
     public class ContaInvestimentoService : IContaInvestimentoService
@@ -41,6 +43,12 @@ namespace BancoX
                 return false;
             }
 
+            if(valor < 50)
+            {
+                mensagemErro = "O valor do depósito precisa ser maior ou igual a 50!";
+                return false;
+            }
+
             return true;
         }
 
@@ -54,7 +62,7 @@ namespace BancoX
             throw new NotImplementedException();
         }
 
-        public bool ResgateTitulo(double valorRetirada, int idAgencia, int contaCorrente, string nomeBanco, DateTime dataAtualResgate, DateTime dataVencimento, out string mensagemErro)
+        public bool ResgateInvestimento(double valorRetirada, int idAgencia, int contaCorrente, string nomeBanco, DateTime dataAtualResgate, DateTime dataVencimento, out string mensagemErro)
         {
             // retirada da conta investimentos para uma outra conta particular
 

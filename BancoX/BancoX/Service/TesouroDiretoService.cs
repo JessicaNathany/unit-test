@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace BancoX.Service
 {
-    class TesouroDiretoService
+    public class TesouroDiretoService
     {
+
     }
 }
