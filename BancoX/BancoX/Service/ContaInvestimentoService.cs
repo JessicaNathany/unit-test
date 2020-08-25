@@ -76,7 +76,7 @@ namespace BancoX
                 mensagemErro = "Ocorreu um erro ao fazer o depósito!";
                 return false;
             }
-
+            
             return true;
         }
 
