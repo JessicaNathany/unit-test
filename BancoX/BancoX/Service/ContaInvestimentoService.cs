@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Transactions;
 using BancoX.Interface;
 using FluentValidation.Results;
 
@@ -7,29 +8,29 @@ namespace BancoX
 {
     public class ContaInvestimentoService : IContaInvestimentoService
     {
-        public IAgenciaRepository _AgenciaRepository { get; private set; }
+        public IAgenciaRepository AgenciaRepository { get; private set; }
 
-        public IContaRepository _ContaRepository { get; private set; }
+        public IContaRepository ContaRepository { get; private set; }
 
-        public IExtratoInvetimentoRepository _IExtratoInvestimentoRepository { get; private set; }
+        public IExtratoInvetimentoRepository ExtratoInvestimentoRepository { get; private set; }
 
-        public IContaInvestimentoRepository _IContaInvestimentoRepository { get; private set; }
+        public IContaInvestimentoRepository ContaInvestimentoRepository { get; private set; }
 
         public ContaInvestimentoService(IExtratoInvetimentoRepository extratoInvestimentoRepository, IContaInvestimentoRepository contaInvestimentoRepository, IAgenciaRepository agenciaRepository, IContaRepository contaRepository)
         {
-            _IExtratoInvestimentoRepository = extratoInvestimentoRepository;
-            _IContaInvestimentoRepository = contaInvestimentoRepository;
-            _AgenciaRepository = agenciaRepository;
-            _ContaRepository = contaRepository;
+            ExtratoInvestimentoRepository = extratoInvestimentoRepository;
+            ContaInvestimentoRepository = contaInvestimentoRepository;
+            AgenciaRepository = agenciaRepository;
+            ContaRepository = contaRepository;
         }
         
         public bool Deposito(int idAgencia, int numero, string banco, decimal valor, out string mensagemErro)
         {
             mensagemErro = "";
 
-            var agencia = _AgenciaRepository.GetById(idAgencia);
+            var agencia = AgenciaRepository.GetById(idAgencia);
 
-            var conta = _IContaInvestimentoRepository.GetById(numero);
+            var contaInvestimento = ContaInvestimentoRepository.GetById(idAgencia, numero);
 
             if (agencia == null)
             {
@@ -37,7 +38,7 @@ namespace BancoX
                 return false;
             }
 
-            if (conta == null)
+            if (contaInvestimento == null)
             {
                 mensagemErro = "Conta inválida!";
                 return false;
@@ -46,6 +47,33 @@ namespace BancoX
             if(valor < 50)
             {
                 mensagemErro = "O valor do depósito precisa ser maior ou igual a 50!";
+                return false;
+            }
+
+            contaInvestimento.Saldo = contaInvestimento.Saldo + valor;
+
+            var extrato = new ExtratoInvetimento
+            {
+                DataRegistro = DateTime.Now,
+                Saldo = contaInvestimento.Saldo,
+                IdAgencia = 0002,
+                IdConta = 1050,
+                Valor = 300m,
+                Descricao = "Depósito"
+            };
+
+            try
+            {
+                using(var transaction = new TransactionScope())
+                {
+                   ContaInvestimentoRepository.Save(contaInvestimento);
+                   ExtratoInvestimentoRepository.Save(extrato);
+                   transaction.Complete();
+                }
+            }
+            catch (Exception)
+            {
+                mensagemErro = "Ocorreu um erro ao fazer o depósito!";
                 return false;
             }
 

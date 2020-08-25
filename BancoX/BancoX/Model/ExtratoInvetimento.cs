@@ -8,6 +8,10 @@ namespace BancoX.Interface
 
         public int IdTitulo { get; set; }
 
+        public int IdAgencia { get; set; }
+
+        public int IdConta { get; set; }
+
         public int IdCarteira { get; set; }
 
         public DateTime DataRegistro { get; set; }
