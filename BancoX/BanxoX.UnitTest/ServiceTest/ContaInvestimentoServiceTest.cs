@@ -40,7 +40,7 @@ namespace BanxoX.UnitTest
             return contaInvestimento;
         }
 
-        [Fact(DisplayName = "Agência não existe")]
+        [Fact(DisplayName = "Conta Investimento - Depósito agência não existe")]
         [Trait("Categoria", "Conta Investimento")]
         public void ContaInvestimento_Deposito_AgenciaNaoExiste_Erro()
         {
@@ -60,9 +60,8 @@ namespace BanxoX.UnitTest
             Assert.False(result);
             Assert.Equal("Agência inválida!", msgErro);
         }
-
         
-        [Fact(DisplayName = "Conta Investimento não existe")]
+        [Fact(DisplayName = "Conta Investimento - Depósito conta não existe")]
         [Trait("Categoria", "Conta Investimento")]
         public void ContaInvestimento_Deposito_ContaInvestidorNaoExiste_Erro()
         {
@@ -82,7 +81,7 @@ namespace BanxoX.UnitTest
             Assert.Equal("Conta inválida!", msgErro);
         }
         
-        [Fact(DisplayName = "Valor do depósito maior ou igual 50")]
+        [Fact(DisplayName = "Conta Investimento - Depósito maior ou igual 50")]
         [Trait("Categoria", "Conta Investimento")]
         public void ContaInvestimento_Deposito_ValorMaiorOuIgualCinquenta_Erro()
         {
@@ -111,38 +110,30 @@ namespace BanxoX.UnitTest
 
             // Assert
             Assert.True(result);
-            Mock.Get(contaInvestimento.ContaInvestimentoRepository).Verify(x => x.Save(It.Is<ContaInvestimento>(c => c.AgenciaId == 0001 && c.Numero.Equals(1040) && c.Banco == "Easyinvest" && c.Saldo == 300m)));
-            Mock.Get(contaInvestimento.ExtratoInvestimentoRepository).Verify(x => x.Save(It.Is<ExtratoInvetimento>(e => e.IdCarteira == 1 && e.IdAgencia == 0001 && e.IdConta == 1040 && e.Valor == 300m && e.Saldo == 600m && e.Descricao == "Depósito")));
+            Mock.Get(contaInvestimento.ContaInvestimentoRepository).Verify(x => x.Save(It.Is<ContaInvestimento>(c => c.AgenciaId == 0001 && c.Numero.Equals(1040) && c.Banco == "Easyinvest" && c.Saldo == 600m)));
+            Mock.Get(contaInvestimento.ExtratoInvestimentoRepository).Verify(x => x.Save(It.Is<ExtratoInvetimento>(e => e.IdAgencia == 0001 && e.IdConta == 1040 && e.Valor == 300m && e.Saldo == 600m && e.Descricao == "Depósito")));
         }
-       
-        
-        [Fact(DisplayName = "Calcula agência de origem não existe")]
+
+        [Fact(DisplayName = "Conta Investimento - Transferência agência origem não existe")]
         [Trait("Categoria", "Conta Investimento")]
         public void ContaInvestimento_Transferencia_ErroAgenciaOrigemNaoExiste()
         {
-            var contaInvestOrigem = 2;
-            var valor = 500;
-            var agenciaDestino = 8792;
-
             // Arrange
             var contaInvestimento = GetContaInvestimento();
 
             // Act
             string msgErro;
-            var result = contaInvestimento.Transferencia(0, contaInvestOrigem, valor, agenciaDestino, 0, out msgErro);
+            var result = contaInvestimento.Transferencia(0, 2, 500m, 0001, 0, out msgErro);
 
             // Assert
             Assert.False(result);
-            Assert.Equal("Agência origem inválida!", msgErro);
+            Assert.Equal("Agência de origem não existe!", msgErro);
         }
 
-        [Fact(DisplayName = "Calcula agência não existe")]
+        [Fact(DisplayName = "Conta Investimento - Transferência conta de origem não existe")]
         [Trait("Categoria", "Conta Investimento")]
         public void ContaInvestimento_Transferencia_ErroContaOrigemNaoExisteNaAgencia()
         {
-            var agenciaInvestOrigem = 0002;
-            var contaInvestOrigem = 2;
-            var valor = 500;
             var agenciaDestino = 8792;
 
             // Arrange
@@ -150,60 +141,57 @@ namespace BanxoX.UnitTest
 
             // Act
             string msgErro;
-            var result = contaInvestimento.Transferencia(agenciaInvestOrigem, contaInvestOrigem, valor, agenciaDestino, 0, out msgErro);
+            var result = contaInvestimento.Transferencia(0001, 0, 500m, agenciaDestino, 0, out msgErro);
 
             // Assert
             Assert.False(result);
-            Assert.Equal("Conta origem inválida!", msgErro);
+            Assert.Equal("Conta de origem não existe!", msgErro);
         }
 
-        
-        [Fact(DisplayName = "Calcula agêcnia destino não existe")]
+        [Fact(DisplayName = "Conta Investimento - Transferência agência destino não existe")]
         [Trait("Categoria", "Conta Investimento")]
         public void ContaInvestimento_Transferencia_ErroSeAgenciaDestinoNaoExiste()
         {
-            var agenciaInvestOrigem = 0002;
-            var contaInvestOrigem = 2;
-            var contaDestino = 3621;
-            var valor = 500;
-         
-
             // Arrange
             var contaInvestimento = GetContaInvestimento();
 
             // Act
             string msgErro;
-            var result = contaInvestimento.Transferencia(agenciaInvestOrigem, contaInvestOrigem, valor, 0, contaDestino, out msgErro);
+            var result = contaInvestimento.Transferencia(0002, 1040, 1000m, 0, 1050, out msgErro);
 
             // Assert
             Assert.False(result);
-            Assert.Equal("Agência destino inválida!", msgErro);
+            Assert.Equal("Agêncica de destino não existe!", msgErro);
         }
 
         
-        [Fact(DisplayName = "Calcula Conta não existe")]
+        [Fact(DisplayName = "Conta Investimento - Transferência conta destino não existe")]
         [Trait("Categoria", "Conta Investimento")]
         public void ContaInvestimento_Transferencia_ErroSeContaDestinoNaoExiste()
         {
-            var agenciaInvestOrigem = 0002;
-            var contaInvestOrigem = 2;
-            var agenciaDestino = 8792;
-            var valor = 500;
-
+            var agOrigem = 0001;
+            var ccOrigem = 1040;
+            var valor = 1000m;
 
             // Arrange
             var contaInvestimento = GetContaInvestimento();
 
             // Act
             string msgErro;
-            var result = contaInvestimento.Transferencia(agenciaInvestOrigem, contaInvestOrigem, valor, agenciaDestino, 0, out msgErro);
+            var result = contaInvestimento.Transferencia(agOrigem, ccOrigem, valor, 0002, 0, out msgErro);
 
             // Assert
             Assert.False(result);
-            Assert.Equal("Conta destino inválida!", msgErro);
+            Assert.Equal("Conta destino não existe!", msgErro);
         }
 
-        
+        [Fact(DisplayName = "Conta Investimento - Transferência maior ou igual a 0")]
+        [Trait("Categoria", "Conta Investimento")]
+        public void ContaInvestimento_Transferencia_ValorMaiorOuIgualZero()
+        {
+            throw new NotImplementedException();
+        }
+
         [Fact(DisplayName = "Calcula data maior ou igual do que data minima do resgate")]
         [Trait("Categoria", "Conta Investimento")]
         public void ContaInvestimento_Resgate_DataDeveraSerMaiorOuIgualQueDataMininaDoResgate_Erro()
@@ -225,75 +213,6 @@ namespace BanxoX.UnitTest
             // Assert
             Assert.False(result);
             Assert.Equal("A data de resgate deve ser maior ou igual a data de vencimento do título!", msgErro);
-        }
-
-        
-        [Fact(DisplayName = "Calcula Imposto de Renda até 6 meses")]
-        [Trait("Categoria", "Conta Investimento")]
-        public void ContaInvestimento_CalculoImpostoRenda_AteSeisMeses()
-        {
-            double valorTitulo = 500.00;
-            DateTime dataAplicacao = DateTime.Now.AddMonths(-6);
-            DateTime dataVencimento = dataAplicacao.AddYears(4);
-
-            var calcIR = (22.5 / 100) * valorTitulo; 
-
-            // Arrange
-            var contaInvestimento = GetContaInvestimento();
-
-            // Act
-            string msgErro;
-            var result = contaInvestimento.CalculaDescontoImpostoRenda(valorTitulo, dataAplicacao, dataVencimento, out msgErro);
-
-            // Assert
-            Assert.Equal(result, calcIR);
-            Assert.Equal("Será cobrado 22,5% de imposto de renda do seu lucro!", msgErro);
-        }
-
-        
-        [Fact(DisplayName = "Calcula Imposto de Renda acima de 1 anos")]
-        [Trait("Categoria", "Conta Investimento")]
-        public void ContaInvestimento_CalculoImpostoRenda_AteUmAno()
-        {
-            double valorTitulo = 500.00;
-            DateTime dataAplicacao = DateTime.Now.AddMonths(-6);
-            DateTime dataVencimento = dataAplicacao.AddYears(4);
-
-            var calcIR = (20/100) * valorTitulo; 
-
-            // Arrange
-            var contaInvestimento = GetContaInvestimento();
-
-            // Act
-            string msgErro;
-            var result = contaInvestimento.CalculaDescontoImpostoRenda(valorTitulo, dataAplicacao, dataVencimento, out msgErro);
-
-            // Assert
-            Assert.Equal(result, calcIR);
-            Assert.Equal("Será cobrado 20% de imposto de renda do seu lucro!", msgErro);
-        }
-
-        
-        [Fact(DisplayName = "Calcula Imposto de Renda acima de 2 anos")]
-        [Trait("Categoria", "Conta Investimento")]
-        public void ContaInvestimento_CalculoImpostoRenda_AcimaDoisAno()
-        {
-            double valorTitulo = 680.00;
-            DateTime dataAplicacao = DateTime.Now.AddMonths(-6);
-            DateTime dataVencimento = dataAplicacao.AddYears(4);
-
-            var calcIR = (15 / 100) * valorTitulo;
-
-            // Arrange
-            var contaInvestimento = GetContaInvestimento();
-
-            // Act
-            string msgErro;
-            var result = contaInvestimento.CalculaDescontoImpostoRenda(valorTitulo, dataAplicacao, dataVencimento, out msgErro);
-
-            // Assert
-            Assert.Equal(result, calcIR);
-            Assert.Equal("Será cobrado 15% de imposto de renda do seu lucro!", msgErro);
         }
     }
 }

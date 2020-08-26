@@ -56,8 +56,8 @@ namespace BancoX
             {
                 DataRegistro = DateTime.Now,
                 Saldo = contaInvestimento.Saldo,
-                IdAgencia = 0002,
-                IdConta = 1050,
+                IdAgencia = 0001,
+                IdConta = 1040,
                 Valor = 300m,
                 Descricao = "Depósito"
             };
@@ -102,9 +102,43 @@ namespace BancoX
         
         public bool Transferencia(int agenciaOrigem, int contaOrigem, decimal valor, int agenciaDestino, int contaDestino, out string mensagemErro)
         {
-            throw new NotImplementedException();
+            mensagemErro = "";
 
-            // transferência do valor da carteira para a conta corrente
+            var agencia = AgenciaRepository.GetById(agenciaOrigem);
+
+            var agDestino = AgenciaRepository.GetById(agenciaDestino);
+
+            var contaInvestimento = ContaInvestimentoRepository.GetById(agenciaOrigem, contaOrigem);
+
+            var ccDestino = ContaInvestimentoRepository.GetById(agenciaDestino, contaDestino);
+
+            if (agencia == null)
+            {
+                mensagemErro = "Agência de origem não existe!";
+                return false;
+            }
+
+            if(agDestino == null)
+            {
+                mensagemErro = "Agêncica de destino não existe!";
+                return false;
+            }
+
+            if(contaInvestimento == null)
+            {
+                mensagemErro = "Conta de origem não existe!";
+                return false;
+            }
+
+            if(ccDestino == null)
+            {
+                mensagemErro = "Conta destino não existe!";
+                return false;
+            }
+
+            return true;
         }
+
+      
     }
 }

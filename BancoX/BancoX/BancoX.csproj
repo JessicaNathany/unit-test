@@ -66,6 +66,7 @@
     <Compile Include="Repository\Inteface\IExtratoRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Model\TesouroDireto.cs" />
+    <Compile Include="Service\Interface\ITesouroDiretoService.cs" />
     <Compile Include="Service\TesouroDiretoService.cs" />
   </ItemGroup>
   <ItemGroup>

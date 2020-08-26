@@ -12,8 +12,6 @@ namespace BancoX.Interface
 
         bool Deposito(int idAgencia, int numero, string banco, decimal valor, out string mensagemErro);
 
-        double CalculaDescontoImpostoRenda(double valorTitulo, DateTime dataAplicacao, DateTime dataVencimento, out string mensagemErro);
-
         bool Transferencia(int agenciaOrigem, int contaOrigem, decimal valor, int agenciaDestino, int contaDestino, out string mensagemErro);
     }
 }
