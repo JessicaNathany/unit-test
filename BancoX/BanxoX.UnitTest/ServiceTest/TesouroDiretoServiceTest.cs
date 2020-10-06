@@ -25,7 +25,7 @@ namespace BanxoX.UnitTest.ServiceTest
         //    DateTime dataAplicacao = DateTime.Now.AddMonths(-6);
         //    DateTime dataVencimento = dataAplicacao.AddYears(4);
 
-        //    var calcIR = (22.5 / 100) * valorTitulo; 
+        //    var calcIR = (22.5 / 100) * valorTitulo;
 
         //    // Arrange
         //    var contaInvestimento = GetContaInvestimento();
@@ -48,7 +48,7 @@ namespace BanxoX.UnitTest.ServiceTest
         //    DateTime dataAplicacao = DateTime.Now.AddMonths(-6);
         //    DateTime dataVencimento = dataAplicacao.AddYears(4);
 
-        //    var calcIR = (20/100) * valorTitulo; 
+        //    var calcIR = (20 / 100) * valorTitulo;
 
         //    // Arrange
         //    var contaInvestimento = GetContaInvestimento();

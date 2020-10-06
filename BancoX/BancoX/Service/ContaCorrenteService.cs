@@ -241,7 +241,7 @@ namespace BancoX
                     transaction.Complete();
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 mensagemErro = "Ocorreu um problema ao fazer a tranferência!";
                 return false;

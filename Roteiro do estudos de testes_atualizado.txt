@@ -20,12 +20,7 @@ Criar um serviço  para o banco BanZone que permite realizar as seguintes opera�
 			- A conta deve existir na agência (ambas)
 			- O valor deve ser menor ou igual ao saldo da conta
 
-	Transferência entre contas		
-		Requisitos:
-			- A agência deve existir (ambas)
-			- A conta deve ser maior do que zero
-			- O valor deve ser menor ou igual ao saldo da conta de origem
-			
+
 	Saldo
 		Requisitos:
 			- A agência deve existir (para contas) 
@@ -45,6 +40,7 @@ Criar um serviço  para o banco BanZone que permite realizar as seguintes opera�
 	Investimento irá conter alguns serviços e regras tais como:	
 			
 	Inestimento Tesouro Direto
+	
 		Requisitos:
 			- Para comprar um título do tesouro direto, é preciso ter o valor igual ou maior que 50 na carteira -- ok
 			- Para Resgatar o valor do titulo, a data deverá ser maior ou igual a data mínima de resgate do título -- ok

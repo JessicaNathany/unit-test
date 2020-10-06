@@ -23,7 +23,7 @@ namespace BancoX
             AgenciaRepository = agenciaRepository;
             ContaRepository = contaRepository;
         }
-        
+
         public bool Deposito(int idAgencia, int numero, string banco, decimal valor, out string mensagemErro)
         {
             mensagemErro = "";
@@ -44,9 +44,9 @@ namespace BancoX
                 return false;
             }
 
-            if(valor < 50)
+            if (valor < 50)
             {
-                mensagemErro = "O valor do depósito precisa ser maior ou igual a 50!";
+                mensagemErro = "O valor do depósito precisa ser maior do que 0!";
                 return false;
             }
 
@@ -64,11 +64,11 @@ namespace BancoX
 
             try
             {
-                using(var transaction = new TransactionScope())
+                using (var transaction = new TransactionScope())
                 {
-                   ContaInvestimentoRepository.Save(contaInvestimento);
-                   ExtratoInvestimentoRepository.Save(extrato);
-                   transaction.Complete();
+                    ContaInvestimentoRepository.Save(contaInvestimento);
+                    ExtratoInvestimentoRepository.Save(extrato);
+                    transaction.Complete();
                 }
             }
             catch (Exception)
@@ -76,7 +76,7 @@ namespace BancoX
                 mensagemErro = "Ocorreu um erro ao fazer o depósito!";
                 return false;
             }
-            
+
             return true;
         }
 
@@ -90,16 +90,26 @@ namespace BancoX
             throw new NotImplementedException();
         }
 
-        public bool ResgateInvestimento(double valorRetirada, int idAgencia, int contaCorrente, string nomeBanco, DateTime dataAtualResgate, DateTime dataVencimento, out string mensagemErro)
+        public bool ResgateInvestimento(double valorRetirada, int idAgencia, int contaCorrente, string nomeBanco, DateTime dataResgate, DateTime dataVencimentoTitulo, out string mensagemErro)
         {
-            // retirada da conta investimentos para uma outra conta particular
+            mensagemErro = "";
 
-            // resgate do título => transferência para uma conta corrente
+            if(valorRetirada <= 0)
+            {
+                mensagemErro = "Valor da retirada do título deverá ser maior do que zero!";
+                return false;
+            }
 
-            throw new NotImplementedException();
+            if(dataResgate < dataVencimentoTitulo)
+            {
+                mensagemErro = "A data de resgate deve ser maior do que a data de vencimento do título!";
+                return false;
+            }
+
+            return true;
         }
 
-        
+
         public bool Transferencia(int agenciaOrigem, int contaOrigem, decimal valor, int agenciaDestino, int contaDestino, out string mensagemErro)
         {
             mensagemErro = "";
@@ -118,27 +128,73 @@ namespace BancoX
                 return false;
             }
 
-            if(agDestino == null)
+            if (agDestino == null)
             {
                 mensagemErro = "Agêncica de destino não existe!";
                 return false;
             }
 
-            if(contaInvestimento == null)
+            if (contaInvestimento == null)
             {
                 mensagemErro = "Conta de origem não existe!";
                 return false;
             }
 
-            if(ccDestino == null)
+            if (ccDestino == null)
             {
                 mensagemErro = "Conta destino não existe!";
                 return false;
             }
 
+            if (valor <= 0)
+            {
+                mensagemErro = "O valor da transferência precisa deve ser maior do que 0!";
+                return false;
+            }
+
+            contaInvestimento.Saldo = contaInvestimento.Saldo - valor;
+
+            var extratoContaOrigem = new ExtratoInvetimento()
+            {
+                DataRegistro = DateTime.Now,
+                IdAgencia = contaInvestimento.Id,
+                IdConta = contaInvestimento.Id,
+                Valor = valor * -1,
+                Saldo = contaInvestimento.Saldo,
+                Descricao = $"Transferência para Ag {agenciaDestino} Cc {contaDestino}",
+            };
+
+            contaInvestimento.Saldo = ccDestino.Saldo + valor;
+
+            ccDestino.Saldo = ccDestino.Saldo + valor;
+
+            var extratoContaDestino = new ExtratoInvetimento()
+            {
+                DataRegistro = DateTime.Now,
+                IdAgencia = ccDestino.AgenciaId,
+                IdConta = ccDestino.Id,
+                Valor = valor,
+                Saldo = ccDestino.Saldo,
+                Descricao = $"Transferência para Ag {agenciaOrigem} Cc {contaInvestimento}",
+            };
+
+            try
+            {
+                using (var transaction = new TransactionScope())
+                {
+                    ContaInvestimentoRepository.Save(contaInvestimento);
+                    ExtratoInvestimentoRepository.Save(extratoContaOrigem);
+                    ExtratoInvestimentoRepository.Save(extratoContaDestino);
+                    transaction.Complete();
+                }
+            }
+            catch (Exception)
+            {
+                mensagemErro = "Ocorreu um problema ao fazer a tranferência!";
+                return false;
+            }
+
             return true;
         }
-
-      
     }
 }

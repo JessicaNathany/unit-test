@@ -9,6 +9,10 @@ namespace BanxoX.UnitTest
 {
     public class ContaInvestimentoServiceTest
     {
+        const int AGENCIA_EASYINVEST = 0001;
+        const string BANCO_EASYINVEST = "Easyinvest";
+        const int AGENCIA_XP = 0002;
+
         private ContaInvestimentoService GetContaInvestimento()
         {
             var contaInvestimento = new ContaInvestimentoService(
@@ -44,17 +48,13 @@ namespace BanxoX.UnitTest
         [Trait("Categoria", "Conta Investimento")]
         public void ContaInvestimento_Deposito_AgenciaNaoExiste_Erro()
         {
-            var numero = 1040;
-            var banco = "EasyInvest";
-            var valor = 1000M;
-
             // Arrange
             var contaInvestimento = GetContaInvestimento();
 
             // Act
             string msgErro;
          
-            var result = contaInvestimento.Deposito(0, numero, banco, valor, out msgErro);
+            var result = contaInvestimento.Deposito(0, 1040, BANCO_EASYINVEST, 1000m, out msgErro);
 
             // Assert
             Assert.False(result);
@@ -65,36 +65,32 @@ namespace BanxoX.UnitTest
         [Trait("Categoria", "Conta Investimento")]
         public void ContaInvestimento_Deposito_ContaInvestidorNaoExiste_Erro()
         {
-            var banco = "EasyInvest";
-            var valor = 1000M;
-            var idAgencia = 0001;
-
             // arrange
             var contaInvestimento = GetContaInvestimento();
 
             // act
             string msgErro;
-            var result = contaInvestimento.Deposito(idAgencia, 0, banco, valor, out msgErro);
+            var result = contaInvestimento.Deposito(AGENCIA_EASYINVEST, 0, BANCO_EASYINVEST, 1000m, out msgErro);
 
             // assert
             Assert.False(result);
             Assert.Equal("Conta inválida!", msgErro);
         }
         
-        [Fact(DisplayName = "Conta Investimento - Depósito maior ou igual 50")]
+        [Fact(DisplayName = "Conta Investimento - Depósito maior do que 0")]
         [Trait("Categoria", "Conta Investimento")]
-        public void ContaInvestimento_Deposito_ValorMaiorOuIgualCinquenta_Erro()
+        public void ContaInvestimento_Deposito_ValorMaiorQueZeroErro()
         {
             // Arrange
             var contaInvestimento = GetContaInvestimento();
 
             // Act
             string msgErro;
-            var result = contaInvestimento.Deposito(0001, 1040, "Easyinvest", 30M, out msgErro);
+            var result = contaInvestimento.Deposito(AGENCIA_EASYINVEST, 1040, BANCO_EASYINVEST, 0m, out msgErro);
 
             // Assert
             Assert.False(result);
-            Assert.Equal("O valor do depósito precisa ser maior ou igual a 50!", msgErro);
+            Assert.Equal("O valor do depósito precisa ser maior do que 0!", msgErro);
         }
 
         [Fact(DisplayName = "Conta Investimento - Depósito realizado com sucesso")]
@@ -106,7 +102,7 @@ namespace BanxoX.UnitTest
 
             // Act
             string msgErro;
-            var result = contaInvestimento.Deposito(0001, 1040, "Easyinvest", 300m, out msgErro);
+            var result = contaInvestimento.Deposito(AGENCIA_EASYINVEST, 1040, BANCO_EASYINVEST, 300m, out msgErro);
 
             // Assert
             Assert.True(result);
@@ -123,7 +119,7 @@ namespace BanxoX.UnitTest
 
             // Act
             string msgErro;
-            var result = contaInvestimento.Transferencia(0, 2, 500m, 0001, 0, out msgErro);
+            var result = contaInvestimento.Transferencia(0, 2, 500m, AGENCIA_EASYINVEST, 0, out msgErro);
 
             // Assert
             Assert.False(result);
@@ -157,7 +153,7 @@ namespace BanxoX.UnitTest
 
             // Act
             string msgErro;
-            var result = contaInvestimento.Transferencia(0002, 1040, 1000m, 0, 1050, out msgErro);
+            var result = contaInvestimento.Transferencia(AGENCIA_XP, 1040, 1000m, 0, 1050, out msgErro);
 
             // Assert
             Assert.False(result);
@@ -169,16 +165,12 @@ namespace BanxoX.UnitTest
         [Trait("Categoria", "Conta Investimento")]
         public void ContaInvestimento_Transferencia_ErroSeContaDestinoNaoExiste()
         {
-            var agOrigem = 0001;
-            var ccOrigem = 1040;
-            var valor = 1000m;
-
             // Arrange
             var contaInvestimento = GetContaInvestimento();
 
             // Act
             string msgErro;
-            var result = contaInvestimento.Transferencia(agOrigem, ccOrigem, valor, 0002, 0, out msgErro);
+            var result = contaInvestimento.Transferencia(AGENCIA_EASYINVEST, 1040, 1000m, AGENCIA_XP, 0, out msgErro);
 
             // Assert
             Assert.False(result);
@@ -189,30 +181,87 @@ namespace BanxoX.UnitTest
         [Trait("Categoria", "Conta Investimento")]
         public void ContaInvestimento_Transferencia_ValorMaiorOuIgualZero()
         {
-            throw new NotImplementedException();
+            // Arrange
+            var contaInvestimento = GetContaInvestimento();
+
+            // Act
+            string msgErro;
+            var result = contaInvestimento.Transferencia(AGENCIA_EASYINVEST, 1040, 0m, AGENCIA_XP, 1040, out msgErro);
+
+            // Assert
+            Assert.False(result);
+            Assert.Equal("O valor da transferência precisa deve ser maior do que 0!", msgErro);
         }
 
-        [Fact(DisplayName = "Calcula data maior ou igual do que data minima do resgate")]
+        [Fact(DisplayName = "Resgate não pode ser menor ou igual a 0")]
+        [Trait("Categoria", "Conta Investimento")]
+        public void ContaInvestimento_Resgate_ValorResgateDeveSerMaiorDoQueZero_Erro()
+        {
+            DateTime dataRetirada = DateTime.Now;
+            DateTime dataVenci = DateTime.Now.AddDays(5);
+
+            // Arrange
+            var contaInvestimento = GetContaInvestimento();
+
+            // Act
+            string msgErro;
+            var result = contaInvestimento.ResgateInvestimento(0, AGENCIA_EASYINVEST, 1, BANCO_EASYINVEST, dataRetirada, dataVenci, out msgErro);
+
+            // Assert
+            Assert.False(result);
+            Assert.Equal("Valor da retirada do título deverá ser maior do que zero!", msgErro);
+        }
+
+        [Fact(DisplayName = "A data de retirada não deverá ser menor que a data de vencimento do título")]
+        [Trait("Categoria", "Conta Investimento")]
+        public void ContaInvestimento_Resgate_DataResgateDeveraSerMaiorQueDataVencimentoTitulo_Erro()
+        {
+            DateTime dataVenci = DateTime.Now;
+            DateTime dataRetirada = DateTime.Now.AddDays(-5);
+
+            // Arrange
+            var contaInvestimento = GetContaInvestimento();
+
+            // Act
+            string msgErro;
+            var result = contaInvestimento.ResgateInvestimento(5000, AGENCIA_EASYINVEST, 1, BANCO_EASYINVEST, dataRetirada, dataVenci, out msgErro);
+
+            // Assert
+            Assert.False(result);
+            Assert.Equal("A data de resgate deve ser maior do que a data de vencimento do título!", msgErro);
+        }
+
+        [Fact(DisplayName = "A data de retirada deverá ser maior ou igual a data mínima do resgate")]
         [Trait("Categoria", "Conta Investimento")]
         public void ContaInvestimento_Resgate_DataDeveraSerMaiorOuIgualQueDataMininaDoResgate_Erro()
         {
-            double valorResgate = 5000;
-            int idAgencia = 0001;
-            int conta = 1;
-            string nomeBanco = "Easyinvest";
             DateTime dataRetirada = DateTime.Now;
-            DateTime dataVenci = DateTime.Now.AddDays(60);
+            DateTime dataVenci = DateTime.Now.AddDays(5);
 
             // Arrange
             var contaInvestimento = GetContaInvestimento();
             
             // Act
             string msgErro;
-            var result = contaInvestimento.ResgateInvestimento(valorResgate, idAgencia, conta, nomeBanco, dataRetirada, dataVenci, out msgErro);
+            var result = contaInvestimento.ResgateInvestimento(5000, AGENCIA_EASYINVEST, 1, BANCO_EASYINVEST, dataRetirada, dataVenci, out msgErro);
 
             // Assert
             Assert.False(result);
             Assert.Equal("A data de resgate deve ser maior ou igual a data de vencimento do título!", msgErro);
         }
+
+
+        [Fact(DisplayName = "Mudar")]
+        [Trait("Categoria", "Mudar")]
+        public void NomClasseTest_NomeMetodoTeste_ResultadoMetodoTest()
+        {
+            // Arrange
+
+            // Act
+
+            // Assert
+
+        }
+        
     }
 }
