@@ -1,5 +1,5 @@
-## unit-test
-Estudos sobre Testes unitários
+## Testes de unidade
+Estudos sobre Testes de unidade
 
 Criado uma aplicação do BancoX, feito vários cenários de testes de unidades com as regras de negócio do banco.
 Os testes foram criados com as classes ContaCorrente e Investimento, até o momento.
@@ -21,6 +21,14 @@ A classe ContaCorrenteTest, foi criada utilizando o Microsoft.VisualStudio.TestT
 - Install-Package FluentValidation -Version 9.1.3
 
 
-~~~Regras de negócios
-Abaixo descrevi as regras de negócios para criar meus testes.
+~~~javascript
+Esta é uma linha de código em Javascript.
+~~~
+
+~~~php
+Esta é uma linha de código em PHP.
+~~~
+
+~~~html
+Esta é uma linha de código em HTML.
 ~~~
