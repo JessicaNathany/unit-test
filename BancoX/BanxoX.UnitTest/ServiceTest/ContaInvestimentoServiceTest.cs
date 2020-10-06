@@ -193,7 +193,7 @@ namespace BanxoX.UnitTest
             Assert.Equal("O valor da transferência precisa deve ser maior do que 0!", msgErro);
         }
 
-        [Fact(DisplayName = "Resgate não pode ser menor ou igual a 0")]
+        [Fact(DisplayName = "Conta Investimento- Resgate não pode ser menor ou igual a 0")]
         [Trait("Categoria", "Conta Investimento")]
         public void ContaInvestimento_Resgate_ValorResgateDeveSerMaiorDoQueZero_Erro()
         {
@@ -212,7 +212,7 @@ namespace BanxoX.UnitTest
             Assert.Equal("Valor da retirada do título deverá ser maior do que zero!", msgErro);
         }
 
-        [Fact(DisplayName = "A data de retirada não deverá ser menor que a data de vencimento do título")]
+        [Fact(DisplayName = "Conta Investimento- A data de retirada deverá ser maior que a data de vencimento do título")]
         [Trait("Categoria", "Conta Investimento")]
         public void ContaInvestimento_Resgate_DataResgateDeveraSerMaiorQueDataVencimentoTitulo_Erro()
         {
@@ -231,37 +231,26 @@ namespace BanxoX.UnitTest
             Assert.Equal("A data de resgate deve ser maior do que a data de vencimento do título!", msgErro);
         }
 
-        [Fact(DisplayName = "A data de retirada deverá ser maior ou igual a data mínima do resgate")]
+        [Fact(DisplayName = "Conta Investimento- Agendar investimento")]
         [Trait("Categoria", "Conta Investimento")]
-        public void ContaInvestimento_Resgate_DataDeveraSerMaiorOuIgualQueDataMininaDoResgate_Erro()
+        public void ContaInvestimento_Investir_AgendarInvestimento()
         {
-            DateTime dataRetirada = DateTime.Now;
-            DateTime dataVenci = DateTime.Now.AddDays(5);
+            // se a hora atual for maior que o horário comercial, então o usuário deverá agendar o título
+            // se não, o usuário faz o investimento
+
+            DateTime dataVenci = DateTime.Now;
+            DateTime dataRetirada = DateTime.Now.AddDays(-5);
 
             // Arrange
             var contaInvestimento = GetContaInvestimento();
-            
+
             // Act
             string msgErro;
-            var result = contaInvestimento.ResgateInvestimento(5000, AGENCIA_EASYINVEST, 1, BANCO_EASYINVEST, dataRetirada, dataVenci, out msgErro);
-
-            // Assert
-            Assert.False(result);
-            Assert.Equal("A data de resgate deve ser maior ou igual a data de vencimento do título!", msgErro);
-        }
-
-
-        [Fact(DisplayName = "Mudar")]
-        [Trait("Categoria", "Mudar")]
-        public void NomClasseTest_NomeMetodoTeste_ResultadoMetodoTest()
-        {
-            // Arrange
-
-            // Act
+            var result = contaInvestimento.Investir(1, )
 
             // Assert
 
         }
-        
+
     }
 }

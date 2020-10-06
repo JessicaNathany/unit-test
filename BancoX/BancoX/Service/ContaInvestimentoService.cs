@@ -93,19 +93,19 @@ namespace BancoX
         public bool ResgateInvestimento(double valorRetirada, int idAgencia, int contaCorrente, string nomeBanco, DateTime dataResgate, DateTime dataVencimentoTitulo, out string mensagemErro)
         {
             mensagemErro = "";
-
-            if(valorRetirada <= 0)
+           
+            if (valorRetirada <= 0)
             {
                 mensagemErro = "Valor da retirada do título deverá ser maior do que zero!";
                 return false;
             }
 
-            if(dataResgate < dataVencimentoTitulo)
+            if (dataResgate < dataVencimentoTitulo)
             {
                 mensagemErro = "A data de resgate deve ser maior do que a data de vencimento do título!";
                 return false;
             }
-
+           
             return true;
         }
 
