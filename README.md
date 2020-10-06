@@ -21,14 +21,4 @@ A classe ContaCorrenteTest, foi criada utilizando o Microsoft.VisualStudio.TestT
 - Install-Package FluentValidation -Version 9.1.3
 
 
-~~~javascript
-Esta é uma linha de código em Javascript.
-~~~
-
-~~~php
-Esta é uma linha de código em PHP.
-~~~
-
-~~~html
-Esta é uma linha de código em HTML.
-~~~
+Este site foi construído usando [GitHub Pages](https://pages.github.com/).
