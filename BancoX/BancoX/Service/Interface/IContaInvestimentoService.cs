@@ -4,9 +4,7 @@ namespace BancoX.Interface
 {
     public interface IContaInvestimentoService
     {
-        bool Investir(int idTitulo, decimal valor, out string mensagemErro);
-
-        List<ExtratoInvetimento>Extrato(int idTitulo, int idCarteira, out string mensagemErro);
+        IList<ExtratoInvetimento>Extrato(int agencia, int conta, DateTime dataInicio, DateTime dataFim, out string mensagemErro);
 
         bool ResgateInvestimento(double valorRetirada, int idAgencia, int contaCorrente, string nomeBanco, DateTime dataAtualResgate, DateTime dataVencimento, out string mensagemErro);
 

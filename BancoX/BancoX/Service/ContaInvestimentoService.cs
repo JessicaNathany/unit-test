@@ -80,14 +80,26 @@ namespace BancoX
             return true;
         }
 
-        public List<ExtratoInvetimento> Extrato(int idTitulo, int idCarteira, out string mensagemErro)
+        public IList<ExtratoInvetimento> Extrato(int idAgencia, int conta, DateTime dataInicio, DateTime dataFim, out string mensagemErro)
         {
-            throw new NotImplementedException();
-        }
+            mensagemErro = "";
 
-        public bool Investir(int idTitulo, decimal valor, out string mensagemErro)
-        {
-            throw new NotImplementedException();
+            if (dataInicio > dataFim)
+            {
+                mensagemErro = "A data de inicio deve ser menor do que a data fim!";
+                return null;
+            }
+
+            try
+            {
+                var extradoInvestimentoLista = ExtratoInvestimentoRepository.GetByPeriodo(idAgencia, conta, dataInicio, dataFim);
+                return extradoInvestimentoLista;
+            }
+            catch (Exception)
+            {
+                mensagemErro = "Ocorreu um erro ao fazer obter o extrato!";
+                return null;
+            }
         }
 
         public bool ResgateInvestimento(double valorRetirada, int idAgencia, int contaCorrente, string nomeBanco, DateTime dataResgate, DateTime dataVencimentoTitulo, out string mensagemErro)
@@ -108,7 +120,6 @@ namespace BancoX
            
             return true;
         }
-
 
         public bool Transferencia(int agenciaOrigem, int contaOrigem, decimal valor, int agenciaDestino, int contaDestino, out string mensagemErro)
         {

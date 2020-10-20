@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="Model\CDB.cs" />
     <Compile Include="Model\Agencia.cs" />
+    <Compile Include="Repository\Inteface\ITesouroDiretoRepository.cs" />
     <Compile Include="Service\ContaInvestimentoService.cs" />
     <Compile Include="Model\Cliente.cs" />
     <Compile Include="Model\Conta.cs" />

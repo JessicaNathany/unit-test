@@ -231,26 +231,23 @@ namespace BanxoX.UnitTest
             Assert.Equal("A data de resgate deve ser maior do que a data de vencimento do título!", msgErro);
         }
 
-        [Fact(DisplayName = "Conta Investimento- Agendar investimento")]
+        [Fact(DisplayName = "Conta Investimento - Extrato data inicio não pode ser maior que data fim")]
         [Trait("Categoria", "Conta Investimento")]
-        public void ContaInvestimento_Investir_AgendarInvestimento()
+        public void ContaInvestimento_Extrato_DataInicioMaiorQueDataFim_Erro()
         {
-            // se a hora atual for maior que o horário comercial, então o usuário deverá agendar o título
-            // se não, o usuário faz o investimento
-
-            DateTime dataVenci = DateTime.Now;
-            DateTime dataRetirada = DateTime.Now.AddDays(-5);
+            var dataInicio = new DateTime(2021, 01, 16);
+            var dataFim = new DateTime(2021, 01, 15);
 
             // Arrange
             var contaInvestimento = GetContaInvestimento();
 
             // Act
             string msgErro;
-            var result = contaInvestimento.Investir(1, )
+            var result = contaInvestimento.Extrato(AGENCIA_EASYINVEST, 1, dataInicio, dataFim, out msgErro);
 
             // Assert
-
-        }
-
+            Assert.Null(result);
+            Assert.Equal("A data de inicio deve ser menor do que a data fim!", msgErro);
+        }        
     }
 }

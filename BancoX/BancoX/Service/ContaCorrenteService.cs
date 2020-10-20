@@ -289,7 +289,6 @@ namespace BancoX
             }
             catch (Exception)
             {
-                // incluir isso em um log...
                 mensagemErro = "Ocorreu um erro ao fazer obter o extrato!";
                 return null;
             }

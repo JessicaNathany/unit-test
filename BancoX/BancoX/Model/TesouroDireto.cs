@@ -1,5 +1,4 @@
-﻿using BancoX.Model;
-using System;
+﻿using System;
 namespace BancoX
 {
     public class TesouroDireto

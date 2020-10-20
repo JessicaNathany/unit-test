@@ -1,4 +1,5 @@
-﻿using BancoX.Service.Interface;
+﻿using BancoX.Repository.Inteface;
+using BancoX.Service.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +10,27 @@ namespace BancoX.Service
 {
     public class TesouroDiretoService : ITesouroDiretoService
     {
-        public double CalculaDescontoImpostoRenda(double valorTitulo, DateTime dataAplicacao, DateTime dataVencimento, out string mensagemErro)
+        private ITesouroDiretoRepository TesouroDiretoRepository { get; set; }
+        public TesouroDiretoService(ITesouroDiretoRepository tesouroDiretoRepository)
         {
-            throw new NotImplementedException();
+            TesouroDiretoRepository = tesouroDiretoRepository;
+        }
+
+        public double CalculaDescontoImpostoRenda(int idTesouro, double valorTitulo, DateTime dataAplicacao, DateTime dataVencimento, out string mensagemErro)
+        {
+            mensagemErro = "";
+
+            if(idTesouro == 0)
+            {
+                mensagemErro = "Tesouro Direto inválida!";
+                return 0;
+            }
+
+            // criar a regra pra calcular o IR de seis meses
+
+            var tesouro = TesouroDiretoRepository.GetById(idTesouro);
+
+            return 0;
         }
     }
 }
