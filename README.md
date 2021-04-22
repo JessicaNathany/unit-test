@@ -8,11 +8,11 @@ A classe ContaCorrenteTest, foi criada utilizando o framework Microsoft.VisualSt
 
 #Links de documentação e ferramentas
 
-📑 Mocks, stubs and Fakes (Martin Fowler): https://martinfowler.com/articles/mocksArentStubs.html
-📑 Mock Documentation: https://documentation.help/Moq/8FE2812.htm
-:wrench: NBuilder: https://github.com/nbuilder/nbuilder
-:wrench: ReportGenerator: https://github.com/danielpalme/ReportGenerator
-:wrench: XunitCodeSnippets: https://marketplace.visualstudio.com/items?itemName=jsakamoto.xUnitCodeSnippets
+- 📑 Mocks, stubs and Fakes (Martin Fowler): (https://martinfowler.com/articles/mocksArentStubs.html)
+- 📑 Mock Documentation: (https://documentation.help/Moq/8FE2812.htm)
+- :wrench: NBuilder: (https://github.com/nbuilder/nbuilder)
+- :wrench: ReportGenerator: (https://github.com/danielpalme/ReportGenerator)
+- :wrench: XunitCodeSnippets: (https://marketplace.visualstudio.com/items?itemName=jsakamoto.xUnitCodeSnippets)
 
 #Pacotes utilizados
 
