@@ -11,13 +11,12 @@ A classe ContaCorrenteTest, foi criada utilizando o framework Microsoft.VisualSt
 - 📑 Mocks, stubs and Fakes (Martin Fowler): (https://martinfowler.com/articles/mocksArentStubs.html)
 - 📑 Mock Documentation: (https://documentation.help/Moq/8FE2812.htm)
 - 📑 AutoFixture Documentation: (https://github.com/AutoFixture/AutoFixture)
-- 📑 NBuilder Documentation: (https://github.com/nbuilder/nbuilder)
-- 📑 Bogus Documentation: (https://github.com/bchavez/Bogus)
 - 📑 MSTest Documentation: (https://docs.microsoft.com/en-us/dotnet/api/microsoft.visualstudio.testtools.unittesting?redirectedfrom=MSDN&view=mstest-net-1.3.2)
 - 📑 Fluent Assertions Documentation: (https://fluentassertions.com/)
 - :wrench: NBuilder: (https://github.com/nbuilder/nbuilder)
 - :wrench: ReportGenerator: (https://github.com/danielpalme/ReportGenerator)
 - :wrench: XunitCodeSnippets: (https://marketplace.visualstudio.com/items?itemName=jsakamoto.xUnitCodeSnippets)
+- :wrench: Bogus: (https://github.com/bchavez/Bogus)
 
 **Pacotes utilizados**
 
