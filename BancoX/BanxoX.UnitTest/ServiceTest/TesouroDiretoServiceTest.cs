@@ -55,6 +55,7 @@ namespace BanxoX.UnitTest.ServiceTest
         [Trait("Categoria", "Tesouro Direto")]
         public void ContaInvestimento_CalculoImpostoRenda_AteSeisMeses()
         {
+
             double valorTitulo = 500.00;
             DateTime dataAplicacao = DateTime.Now.AddMonths(-6);
             DateTime dataVencimento = dataAplicacao.AddYears(4);

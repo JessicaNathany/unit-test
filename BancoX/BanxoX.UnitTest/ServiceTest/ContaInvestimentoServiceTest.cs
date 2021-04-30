@@ -141,7 +141,7 @@ namespace BanxoX.UnitTest
 
             // Assert
             Assert.False(result);
-            Assert.Equal("Conta de origem não existe!", msgErro);
+            Assert.Equal("Agêncica de destino não existe!", msgErro);
         }
 
         [Fact(DisplayName = "Conta Investimento - Transferência agência destino não existe")]
