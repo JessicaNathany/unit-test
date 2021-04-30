@@ -1,12 +1,24 @@
 ## Testes de unidade
 Estudos sobre Testes de unidade
 
-Criado uma aplicação do BancoX, feito vários cenários de testes de unidades com as regras de negócio do banco.
-Os testes foram criados com as classes ContaCorrente e Investimento, até o momento.
+Neste repositório foi criado a aplicação fictícia BancoX, para ser criado vários cenários de testes de unidades com as regras de negócio do banco.
+Os testes foram criados com as classes ContaCorrente e Investimento, utilizando algumas ferramentas de testes de unidade abaixo para facilitar o trabalho.
 
-A classe ContaCorrenteTest, foi criada utilizando o Microsoft.VisualStudio.TestTools.UnitTesting as demais classes foram utilizadas o frameweork  XUnit conforme descrito no pacote abaixo:
+A classe ContaCorrenteTest, foi criada utilizando o framework Microsoft.VisualStudio.TestTools.UnitTesting as demais classes foram utilizadas o framework  XUnit conforme descrito no pacote abaixo. Neste caso, é possível perceber e verificar as principais diferenças no testes quando se utilizado um framework e outro.
 
-#Pacotes utilizados
+**Links de documentação e ferramentas**
+
+- 📑 Mocks, stubs and Fakes (Martin Fowler): (https://martinfowler.com/articles/mocksArentStubs.html)
+- 📑 Mock Documentation: (https://documentation.help/Moq/8FE2812.htm)
+- 📑 AutoFixture Documentation: (https://github.com/AutoFixture/AutoFixture)
+- 📑 MSTest Documentation: (https://docs.microsoft.com/en-us/dotnet/api/microsoft.visualstudio.testtools.unittesting?redirectedfrom=MSDN&view=mstest-net-1.3.2)
+- 📑 Fluent Assertions Documentation: (https://fluentassertions.com/)
+- :wrench: NBuilder: (https://github.com/nbuilder/nbuilder)
+- :wrench: ReportGenerator: (https://github.com/danielpalme/ReportGenerator)
+- :wrench: XunitCodeSnippets: (https://marketplace.visualstudio.com/items?itemName=jsakamoto.xUnitCodeSnippets)
+- :wrench: Bogus: (https://github.com/bchavez/Bogus)
+
+**Pacotes utilizados**
 
 - Moq
 - NBuilder
