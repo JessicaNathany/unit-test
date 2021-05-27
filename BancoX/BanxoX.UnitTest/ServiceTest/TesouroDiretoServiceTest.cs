@@ -51,28 +51,28 @@ namespace BanxoX.UnitTest.ServiceTest
         }
 
 
-        [Fact(DisplayName = "Tesouro Direto - Calcula Imposto de Renda até 6 meses")]
-        [Trait("Categoria", "Tesouro Direto")]
-        public void ContaInvestimento_CalculoImpostoRenda_AteSeisMeses()
-        {
+        //[Fact(DisplayName = "Tesouro Direto - Calcula Imposto de Renda até 6 meses")]
+        //[Trait("Categoria", "Tesouro Direto")]
+        //public void ContaInvestimento_CalculoImpostoRenda_AteSeisMeses()
+        //{
 
-            double valorTitulo = 500.00;
-            DateTime dataAplicacao = DateTime.Now.AddMonths(-6);
-            DateTime dataVencimento = dataAplicacao.AddYears(4);
+        //    double valorTitulo = 500.00;
+        //    DateTime dataAplicacao = DateTime.Now.AddMonths(-6);
+        //    DateTime dataVencimento = dataAplicacao.AddYears(4);
 
-            var calcIR = (22.5 / 100) * valorTitulo;
+        //    var calcIR = (22.5 / 100) * valorTitulo;
 
-            // Arrange
-            var contaInvestimento = GetTesouroDiretoServiceTest();
+        //    // Arrange
+        //    var contaInvestimento = GetTesouroDiretoServiceTest();
 
-            // Act
-            string msgErro;
-            var result = contaInvestimento.CalculaDescontoImpostoRenda(TESOURO_DIRETO, valorTitulo, dataAplicacao, dataVencimento, out msgErro);
+        //    // Act
+        //    string msgErro;
+        //    var result = contaInvestimento.CalculaDescontoImpostoRenda(TESOURO_DIRETO, valorTitulo, dataAplicacao, dataVencimento, out msgErro);
 
-            // Assert
-            Assert.Equal(result, calcIR);
-            Assert.Equal("Será cobrado 22,5% de imposto de renda do seu lucro!", msgErro);
-        }
+        //    // Assert
+        //    Assert.Equal(result, calcIR);
+        //    Assert.Equal("Será cobrado 22,5% de imposto de renda do seu lucro!", msgErro);
+        //}
 
 
         //[Fact(DisplayName = "Calcula Imposto de Renda acima de 1 anos")]
